@@ -146,7 +146,7 @@ const Landing = () => {
             {/* Interactive Stats */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 max-w-2xl mx-auto">
               <div className="bg-background rounded-lg p-6 hover:scale-105 transition-transform cursor-pointer">
-                <div className="text-3xl font-bold text-primary mb-2">< 10s</div>
+                <div className="text-3xl font-bold text-primary mb-2">&lt; 10s</div>
                 <div className="text-sm text-muted-foreground">Average Response Time</div>
               </div>
               <div className="bg-background rounded-lg p-6 hover:scale-105 transition-transform cursor-pointer">
