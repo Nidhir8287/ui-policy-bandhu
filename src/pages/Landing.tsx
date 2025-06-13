@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { MessageCircle, Shield, Clock, CheckCircle, Users, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { MessageCircle, Shield, Clock, CheckCircle, Users, Star, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import PolicyClarifier from '@/components/PolicyClarifier';
 import Header from '@/components/Header';
+import BackToTop from '@/components/BackToTop';
 
 const Landing = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -46,32 +47,32 @@ const Landing = () => {
 
   const usps = [
     {
-      icon: <Shield className="h-6 w-6 stroke-mid hover:stroke-secondary transition-colors" />,
+      icon: <Shield className="h-5 w-5 md:h-6 md:w-6 stroke-mid hover:stroke-secondary transition-colors" />,
       title: "Information, not advice",
       description: "Zero bias, pure facts"
     },
     {
-      icon: <Clock className="h-6 w-6 stroke-mid hover:stroke-secondary transition-colors" />,
+      icon: <Clock className="h-5 w-5 md:h-6 md:w-6 stroke-mid hover:stroke-secondary transition-colors" />,
       title: "To-the-point answers",
       description: "No fluff, just what you need"
     },
     {
-      icon: <CheckCircle className="h-6 w-6 stroke-mid hover:stroke-secondary transition-colors" />,
+      icon: <CheckCircle className="h-5 w-5 md:h-6 md:w-6 stroke-mid hover:stroke-secondary transition-colors" />,
       title: "Simple, jargon-free language",
       description: "Clear explanations anyone can understand"
     },
     {
-      icon: <Users className="h-6 w-6 stroke-mid hover:stroke-secondary transition-colors" />,
+      icon: <Users className="h-5 w-5 md:h-6 md:w-6 stroke-mid hover:stroke-secondary transition-colors" />,
       title: "Clarifies policy—never recommends",
       description: "We explain, you decide"
     },
     {
-      icon: <Shield className="h-6 w-6 stroke-mid hover:stroke-secondary transition-colors" />,
+      icon: <Shield className="h-5 w-5 md:h-6 md:w-6 stroke-mid hover:stroke-secondary transition-colors" />,
       title: "Stays strictly within policy text",
       description: "Only what's in your actual policy"
     },
     {
-      icon: <CheckCircle className="h-6 w-6 stroke-mid hover:stroke-secondary transition-colors" />,
+      icon: <CheckCircle className="h-5 w-5 md:h-6 md:w-6 stroke-mid hover:stroke-secondary transition-colors" />,
       title: "No sales pitches",
       description: "No 'buy now,' affiliate links, or recommendations"
     }
@@ -92,16 +93,16 @@ const Landing = () => {
       {/* Hero Section */}
       <section className="section-padding px-4 text-center gradient-hero animate-fade-in">
         <div className="container-custom">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 text-white leading-tight">
             PolicyBadhu: Your Insurance, Simplified
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed">
             Get clear, to-the-point answers about your policy—no jargon, no bias, no advice.
           </p>
           <Button 
             size="lg" 
             onClick={() => setIsChatOpen(true)}
-            className="gradient-button text-lg px-8 py-4 h-auto text-white hover-scale"
+            className="gradient-button text-lg px-6 md:px-8 py-3 md:py-4 h-auto text-white hover-scale min-h-[44px] w-full sm:w-auto"
           >
             Chat Now
           </Button>
@@ -111,17 +112,17 @@ const Landing = () => {
       {/* About the Product */}
       <section className="section-padding px-4">
         <div className="container-custom">
-          <h2 className="text-4xl font-bold text-center mb-12 text-high">Why PolicyBadhu?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-high">Why PolicyBadhu?</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-16">
             {usps.map((usp, index) => (
-              <Card key={index} className="p-6 hover:shadow-lg transition-all hover-scale bg-card border-border/50 card-shadow animate-fade-in">
+              <Card key={index} className="p-4 md:p-6 hover:shadow-lg transition-all hover-scale bg-card border-border/50 card-shadow animate-fade-in">
                 <CardContent className="p-0">
-                  <div className="flex items-start space-x-4">
-                    <div className="text-primary mt-1">{usp.icon}</div>
+                  <div className="flex items-start space-x-3 md:space-x-4">
+                    <div className="text-primary mt-1 flex-shrink-0">{usp.icon}</div>
                     <div>
-                      <h3 className="font-semibold mb-2 text-high">{usp.title}</h3>
-                      <p className="text-sm text-mid">{usp.description}</p>
+                      <h3 className="font-semibold mb-2 text-high text-base md:text-lg">{usp.title}</h3>
+                      <p className="text-sm text-mid leading-relaxed">{usp.description}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -130,20 +131,20 @@ const Landing = () => {
           </div>
 
           {/* Stats Section */}
-          <div className="text-center bg-primary/10 rounded-lg p-8 border border-border/50 card-shadow">
-            <p className="text-lg mb-4 text-high">
+          <div className="text-center bg-primary/10 rounded-lg p-6 md:p-8 border border-border/50 card-shadow">
+            <p className="text-base md:text-lg mb-4 text-high leading-relaxed">
               Trusted by <span className="font-bold text-primary">15,000+ users</span>, over{' '}
               <span className="font-bold text-primary">50,000 questions</span> answered in under 10 seconds.
             </p>
             
             {/* Interactive Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 max-w-2xl mx-auto">
-              <div className="bg-card border border-border/50 rounded-lg p-6 hover-scale transition-transform cursor-pointer card-shadow">
-                <div className="text-3xl font-bold text-primary mb-2">&lt; 10s</div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-6 md:mt-8 max-w-2xl mx-auto">
+              <div className="bg-card border border-border/50 rounded-lg p-4 md:p-6 hover-scale transition-transform cursor-pointer card-shadow">
+                <div className="text-2xl md:text-3xl font-bold text-primary mb-2">&lt; 10s</div>
                 <div className="text-sm text-mid">Average Response Time</div>
               </div>
-              <div className="bg-card border border-border/50 rounded-lg p-6 hover-scale transition-transform cursor-pointer card-shadow">
-                <div className="text-3xl font-bold text-primary mb-2">98%</div>
+              <div className="bg-card border border-border/50 rounded-lg p-4 md:p-6 hover-scale transition-transform cursor-pointer card-shadow">
+                <div className="text-2xl md:text-3xl font-bold text-primary mb-2">98%</div>
                 <div className="text-sm text-mid">Clarity Rating</div>
               </div>
             </div>
@@ -154,25 +155,25 @@ const Landing = () => {
       {/* Founders */}
       <section className="section-padding px-4 bg-muted/30">
         <div className="container-custom">
-          <h2 className="text-4xl font-bold text-center mb-12 text-high">Meet the Founders</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-high">Meet the Founders</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
             <div className="text-center animate-fade-in">
-              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 mx-auto mb-6 flex items-center justify-center card-shadow">
-                <Users className="h-16 w-16 text-primary" />
+              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 mx-auto mb-4 md:mb-6 flex items-center justify-center card-shadow">
+                <Users className="h-12 w-12 md:h-16 md:w-16 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-4 text-high">Priya Sharma</h3>
-              <p className="text-mid">
+              <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-high">Priya Sharma</h3>
+              <p className="text-mid text-sm md:text-base leading-relaxed">
                 Priya, ex-insurer analyst turned PM, built PolicyBadhu to cut through policy confusion.
               </p>
             </div>
             
             <div className="text-center animate-fade-in">
-              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 mx-auto mb-6 flex items-center justify-center card-shadow">
-                <Users className="h-16 w-16 text-primary" />
+              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 mx-auto mb-4 md:mb-6 flex items-center justify-center card-shadow">
+                <Users className="h-12 w-12 md:h-16 md:w-16 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-4 text-high">Arjun Patel</h3>
-              <p className="text-mid">
+              <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-high">Arjun Patel</h3>
+              <p className="text-mid text-sm md:text-base leading-relaxed">
                 Arjun, tech lead and customer advocate, ensures every answer is clear and accurate.
               </p>
             </div>
@@ -183,28 +184,29 @@ const Landing = () => {
       {/* Customer Testimonials */}
       <section className="section-padding px-4">
         <div className="container-custom">
-          <h2 className="text-4xl font-bold text-center mb-12 text-high">What Our Users Are Saying</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-high">What Our Users Are Saying</h2>
           
-          <div className="relative">
-            <Card className="p-8 bg-card border-border/50 card-shadow">
+          <div className="relative max-w-4xl mx-auto">
+            <Card className="p-6 md:p-8 bg-card border-border/50 card-shadow">
               <CardContent className="p-0 text-center">
                 <div className="flex justify-center mb-4">
                   {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="h-4 w-4 md:h-5 md:w-5 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
                 
                 <img 
                   src={testimonials[currentTestimonial].avatar}
                   alt={testimonials[currentTestimonial].name}
-                  className="w-16 h-16 rounded-full mx-auto mb-4"
+                  className="w-12 h-12 md:w-16 md:h-16 rounded-full mx-auto mb-4"
+                  loading="lazy"
                 />
                 
-                <blockquote className="text-lg mb-4 italic text-high">
+                <blockquote className="text-base md:text-lg mb-4 italic text-high leading-relaxed px-4">
                   "{testimonials[currentTestimonial].quote}"
                 </blockquote>
                 
-                <cite className="font-semibold text-high">
+                <cite className="font-semibold text-high text-sm md:text-base">
                   — {testimonials[currentTestimonial].name}
                 </cite>
               </CardContent>
@@ -213,8 +215,9 @@ const Landing = () => {
             <Button
               variant="outline"
               size="icon"
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 btn-secondary hover-scale"
+              className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 btn-secondary hover-scale min-h-[44px] min-w-[44px]"
               onClick={prevTestimonial}
+              aria-label="Previous testimonial"
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -222,8 +225,9 @@ const Landing = () => {
             <Button
               variant="outline"
               size="icon"
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 btn-secondary hover-scale"
+              className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 btn-secondary hover-scale min-h-[44px] min-w-[44px]"
               onClick={nextTestimonial}
+              aria-label="Next testimonial"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
@@ -234,39 +238,39 @@ const Landing = () => {
       {/* Footer */}
       <footer className="gradient-footer section-padding px-4 border-t border-border/50">
         <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <div className="text-xl font-bold text-primary mb-4">PolicyBadhu</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-6 md:mb-8">
+            <div className="text-center md:text-left">
+              <div className="text-lg md:text-xl font-bold text-primary mb-3 md:mb-4">PolicyBadhu</div>
               <p className="text-sm text-mid">
                 Your insurance, simplified.
               </p>
             </div>
             
-            <div>
-              <h4 className="font-semibold mb-4 text-high">Quick Links</h4>
+            <div className="text-center md:text-left">
+              <h4 className="font-semibold mb-3 md:mb-4 text-high">Quick Links</h4>
               <div className="space-y-2 text-sm">
-                <div><a href="#" className="text-mid hover:text-primary transition-colors">Life Insurance</a></div>
-                <div><a href="#" className="text-mid hover:text-primary transition-colors">Health Insurance</a></div>
-                <div><a href="#" className="text-mid hover:text-primary transition-colors">Auto Insurance</a></div>
-                <div><a href="#" className="text-mid hover:text-primary transition-colors">Travel Insurance</a></div>
+                <div><a href="#" className="text-mid hover:text-primary transition-colors min-h-[44px] block py-1">Life Insurance</a></div>
+                <div><a href="#" className="text-mid hover:text-primary transition-colors min-h-[44px] block py-1">Health Insurance</a></div>
+                <div><a href="#" className="text-mid hover:text-primary transition-colors min-h-[44px] block py-1">Auto Insurance</a></div>
+                <div><a href="#" className="text-mid hover:text-primary transition-colors min-h-[44px] block py-1">Travel Insurance</a></div>
               </div>
             </div>
             
-            <div>
-              <h4 className="font-semibold mb-4 text-high">Contact</h4>
+            <div className="text-center md:text-left">
+              <h4 className="font-semibold mb-3 md:mb-4 text-high">Contact</h4>
               <div className="text-sm text-mid space-y-2">
                 <div>support@policybadhu.com</div>
-                <div className="space-x-4">
-                  <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-                  <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
+                <div className="space-y-2 md:space-y-0 md:space-x-4 flex flex-col md:flex-row">
+                  <a href="#" className="hover:text-primary transition-colors min-h-[44px] block py-1">Privacy Policy</a>
+                  <a href="#" className="hover:text-primary transition-colors min-h-[44px] block py-1">Terms of Service</a>
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="border-t border-border/50 pt-8">
+          <div className="border-t border-border/50 pt-6 md:pt-8">
             <div className="mb-4 p-4 bg-card rounded-lg border-l-4 border-primary card-shadow">
-              <p className="text-sm italic text-high">
+              <p className="text-sm italic text-high leading-relaxed">
                 "PolicyBadhu's clarity engine is a game-changer for training new advisors."
               </p>
               <p className="text-sm font-semibold mt-2 text-high">— Rajesh Kumar, Insurance Expert</p>
@@ -282,10 +286,11 @@ const Landing = () => {
       {/* Floating Chat Button */}
       <Button
         onClick={() => setIsChatOpen(true)}
-        className="fixed bottom-6 right-6 w-16 h-16 rounded-full gradient-button shadow-lg animate-gentle-pulse z-50 text-white hover-scale"
+        className="fixed bottom-4 right-4 w-14 h-14 md:w-16 md:h-16 rounded-full gradient-button shadow-lg animate-gentle-pulse z-40 text-white hover-scale"
         title="Have a question? Click to chat."
+        aria-label="Open chat"
       >
-        <MessageCircle className="h-6 w-6" />
+        <MessageCircle className="h-6 w-6 md:h-7 md:w-7" />
       </Button>
 
       {/* Chat Modal */}
@@ -296,14 +301,17 @@ const Landing = () => {
               onClick={() => setIsChatOpen(false)}
               variant="outline"
               size="icon"
-              className="absolute top-4 right-4 z-10 btn-secondary hover-scale"
+              className="absolute top-2 right-2 z-10 btn-secondary hover-scale min-h-[44px] min-w-[44px]"
+              aria-label="Close chat"
             >
-              ×
+              <X className="h-4 w-4" />
             </Button>
             <PolicyClarifier />
           </div>
         </div>
       )}
+
+      <BackToTop />
     </div>
   );
 };

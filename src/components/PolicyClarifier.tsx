@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -116,7 +117,7 @@ const PolicyClarifier = () => {
         return (
           <div className="space-y-4">
             <Select value={policyName} onValueChange={handlePolicySelect}>
-              <SelectTrigger className="w-full input-field">
+              <SelectTrigger className="w-full input-field min-h-[44px]">
                 <SelectValue placeholder="Select a policy..." />
               </SelectTrigger>
               <SelectContent>
@@ -137,23 +138,23 @@ const PolicyClarifier = () => {
               value={userQuestion}
               onChange={(e) => setUserQuestion(e.target.value)}
               placeholder="Type your question here..."
-              className="min-h-[100px] resize-none input-field"
+              className="min-h-[100px] md:min-h-[120px] resize-none input-field text-base"
             />
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <Button 
                 onClick={handleQuestionSubmit}
                 disabled={!userQuestion.trim()}
-                className="flex-1 gradient-button text-white hover-scale"
+                className="flex-1 gradient-button text-white hover-scale min-h-[44px] order-2 sm:order-1"
               >
                 Ask Question
               </Button>
               <Button 
                 variant="outline" 
                 onClick={handleChangePolicy}
-                size="icon"
-                className="btn-secondary hover-scale"
+                className="btn-secondary hover-scale min-h-[44px] order-1 sm:order-2 sm:w-auto"
               >
-                <ArrowLeft className="h-4 w-4" />
+                <ArrowLeft className="h-4 w-4 sm:mr-0 mr-2" />
+                <span className="sm:hidden">Back to Policy Selection</span>
               </Button>
             </div>
           </div>
@@ -164,7 +165,7 @@ const PolicyClarifier = () => {
         return (
           <div className="flex flex-col items-center justify-center py-8 space-y-4">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            <p className="text-sm text-mid">
+            <p className="text-sm text-mid text-center px-4">
               {currentScreen === 'retrieveContext' 
                 ? 'Searching for relevant information...' 
                 : 'Generating your answer...'}
@@ -175,14 +176,14 @@ const PolicyClarifier = () => {
       case 'followUp':
         return (
           <div className="space-y-3">
-            <div className="grid grid-cols-1 gap-2">
-              <Button onClick={handleAskAn} className="gradient-button text-white hover-scale">
+            <div className="grid grid-cols-1 gap-3">
+              <Button onClick={handleAskAn} className="gradient-button text-white hover-scale min-h-[44px] w-full">
                 Ask another question
               </Button>
-              <Button onClick={handleChangePolicy} variant="outline" className="btn-secondary hover-scale">
+              <Button onClick={handleChangePolicy} variant="outline" className="btn-secondary hover-scale min-h-[44px] w-full">
                 Change policy
               </Button>
-              <Button onClick={handleDone} variant="secondary" className="hover-scale">
+              <Button onClick={handleDone} variant="secondary" className="hover-scale min-h-[44px] w-full">
                 Done
               </Button>
             </div>
@@ -193,7 +194,7 @@ const PolicyClarifier = () => {
         return (
           <div className="flex flex-col items-center justify-center py-8 space-y-4">
             <CheckCircle className="h-12 w-12 text-green-500" />
-            <p className="text-center text-mid">
+            <p className="text-center text-mid px-4">
               Thank you for using Policy Clarifier!
             </p>
             <Button onClick={() => {
@@ -202,7 +203,7 @@ const PolicyClarifier = () => {
               setUserQuestion('');
               setAnswer('');
               setCurrentScreen('welcome');
-            }} variant="outline" className="btn-secondary hover-scale">
+            }} variant="outline" className="btn-secondary hover-scale min-h-[44px]">
               Start Over
             </Button>
           </div>
@@ -215,12 +216,14 @@ const PolicyClarifier = () => {
 
   return (
     <Card className="w-full max-w-2xl mx-auto card-shadow bg-card">
-      <CardHeader className="gradient-button text-white">
-        <CardTitle className="flex items-center gap-2">
-          <MessageCircle className="h-6 w-6" />
-          Policy Clarifier
+      <CardHeader className="gradient-button text-white p-4 md:p-6">
+        <CardTitle className="flex flex-col sm:flex-row sm:items-center gap-2">
+          <div className="flex items-center gap-2">
+            <MessageCircle className="h-5 w-5 md:h-6 md:w-6" />
+            <span className="text-lg md:text-xl">Policy Clarifier</span>
+          </div>
           {user && (
-            <span className="text-xs bg-white/20 px-2 py-1 rounded-full ml-auto">
+            <span className="text-xs bg-white/20 px-2 py-1 rounded-full self-start sm:ml-auto">
               History Saved
             </span>
           )}
@@ -228,27 +231,27 @@ const PolicyClarifier = () => {
       </CardHeader>
       <CardContent className="p-0">
         {/* Chat Messages */}
-        <div className="h-96 overflow-y-auto p-4 space-y-4 border-b border-border">
+        <div className="h-64 sm:h-80 md:h-96 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4 border-b border-border">
           {messages.map((message, index) => (
             <div
               key={index}
               className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                className={`max-w-[85%] sm:max-w-[80%] rounded-lg px-3 md:px-4 py-2 md:py-3 ${
                   message.type === 'user'
                     ? 'chat-bubble-user'
                     : 'chat-bubble-bot'
                 }`}
               >
-                <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                <p className="text-sm md:text-base whitespace-pre-wrap leading-relaxed">{message.content}</p>
               </div>
             </div>
           ))}
         </div>
 
         {/* Current Screen Interface */}
-        <div className="p-4">
+        <div className="p-3 md:p-4">
           {renderCurrentScreen()}
         </div>
       </CardContent>

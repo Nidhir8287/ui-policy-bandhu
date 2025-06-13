@@ -69,6 +69,25 @@
   h1 {
     font-weight: 700;
   }
+
+  /* Responsive typography */
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+  }
+
+  /* Ensure images are responsive */
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 /* Custom gradient backgrounds */
@@ -141,11 +160,18 @@
   transform: scale(1.02);
 }
 
+@media (max-width: 640px) {
+  .hover-scale:hover {
+    transform: none; /* Disable hover effects on mobile */
+  }
+}
+
 /* Input styles */
 .input-field {
   background-color: #2A2A2A;
   border: 1px solid #444444;
   color: #E0E0E0;
+  min-height: 44px; /* Touch target size */
 }
 
 .input-field::placeholder {
@@ -162,12 +188,16 @@
   background-color: #0055FF;
   color: #121212;
   margin-left: auto;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .chat-bubble-bot {
   background-color: #2A2A2A;
   color: #E0E0E0;
   margin-right: auto;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 /* Card shadows */
@@ -175,21 +205,42 @@
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
 }
 
-/* Container max width */
+/* Container max width with responsive behavior */
 .container-custom {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
-/* Section padding */
+@media (min-width: 640px) {
+  .container-custom {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Section padding with responsive behavior */
 .section-padding {
-  padding: 64px 0;
+  padding: 2rem 0;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 640px) {
   .section-padding {
-    padding: 32px 0;
+    padding: 3rem 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding: 4rem 0;
   }
 }
 
@@ -212,8 +263,114 @@
   background: transparent;
   color: #0055FF;
   transition: all 200ms ease;
+  min-height: 44px; /* Touch target size */
 }
 
 .btn-secondary:hover {
   background: rgba(0, 85, 255, 0.1);
+}
+
+/* Mobile-specific styles */
+@media (max-width: 640px) {
+  /* Full-width buttons on mobile */
+  .mobile-full-width {
+    width: 100%;
+  }
+
+  /* Larger touch targets on mobile */
+  button, .btn, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Stack elements vertically on mobile */
+  .mobile-stack {
+    flex-direction: column;
+  }
+
+  .mobile-stack > * {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .mobile-stack > *:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Hide desktop-only elements */
+  .desktop-only {
+    display: none;
+  }
+
+  /* Adjust padding for mobile */
+  .mobile-padding {
+    padding: 1rem;
+  }
+
+  /* Mobile typography adjustments */
+  .mobile-text-sm {
+    font-size: 0.875rem;
+  }
+
+  .mobile-text-base {
+    font-size: 1rem;
+  }
+
+  .mobile-text-lg {
+    font-size: 1.125rem;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tablet-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1025px) {
+  .desktop-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .desktop-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .text-mid {
+    color: #FFFFFF;
+  }
+  
+  .text-low {
+    color: #CCCCCC;
+  }
+}
+
+/* Focus indicators for keyboard navigation */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #0055FF;
+  outline-offset: 2px;
 }
