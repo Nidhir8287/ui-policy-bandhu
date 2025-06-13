@@ -29,17 +29,17 @@ const MobileNav = () => {
       {/* Full-screen mobile menu overlay */}
       {isOpen && (
         <>
-          {/* Semi-transparent backdrop with proper opacity */}
+          {/* Semi-transparent backdrop */}
           <div 
-            className="fixed inset-0 bg-black/60 z-50 md:hidden" 
+            className="fixed inset-0 z-40 md:hidden pointer-events-auto" 
             onClick={closeMenu}
             style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}
           />
 
-          {/* Menu panel sliding from left with solid background */}
+          {/* Menu panel sliding from left */}
           <div 
-            className="fixed top-0 left-0 h-full w-3/4 z-60 transform transition-transform duration-300 ease-in-out md:hidden"
-            style={{ backgroundColor: '#2A2A2A', border:"2px solid green" }}
+            className="fixed top-0 left-0 h-full w-3/4 z-50 transform transition-transform duration-300 ease-in-out md:hidden pointer-events-auto opacity-100"
+            style={{ backgroundColor: '#1E1E1E' }}
           >
             {/* Header with close button */}
             <div className="p-6 border-b border-border/30">
