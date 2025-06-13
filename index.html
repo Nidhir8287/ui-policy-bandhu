@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,6 +23,11 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-K794ZQ971E');
+
+      {% if auth.user %}
+        // Tag all hits with logged-in user's ID
+        gtag('set', { 'user_id': '{{ auth.user.id }}' });
+      {% endif %}
     </script>
   </head>
 
