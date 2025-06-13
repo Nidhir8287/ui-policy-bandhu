@@ -4,13 +4,43 @@ import { useAuth } from '@/hooks/useAuth';
 import { Link, useLocation } from 'react-router-dom';
 import { User, LogOut, History, MessageCircle, Home } from 'lucide-react';
 import MobileNav from './MobileNav';
+import { useState, useEffect } from 'react';
 
 const Header = () => {
   const { user, signInWithGoogle, signOut, loading } = useAuth();
   const location = useLocation();
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Only apply auto-hide on mobile (≤768px)
+      if (window.innerWidth <= 768) {
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          // Scrolling down and past 100px
+          setIsVisible(false);
+        } else {
+          // Scrolling up
+          setIsVisible(true);
+        }
+      } else {
+        // Always visible on desktop
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   return (
-    <header className="sticky top-0 z-40 gradient-header backdrop-blur border-b border-border/50">
+    <header className={`sticky top-0 z-40 gradient-header backdrop-blur border-b border-border/50 transition-transform duration-300 ${
+      isVisible ? 'translate-y-0' : '-translate-y-full'
+    }`}>
       <div className="container-custom py-3 px-4 flex justify-between items-center">
         <div className="flex items-center space-x-6">
           <Link to="/" className="text-xl md:text-2xl font-bold text-primary hover-scale">
