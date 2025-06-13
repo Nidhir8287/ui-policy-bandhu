@@ -33,13 +33,13 @@ const MobileNav = () => {
           <div 
             className="fixed inset-0 bg-black/60 z-50 md:hidden" 
             onClick={closeMenu}
-            style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}
           />
 
           {/* Menu panel sliding from left with solid background */}
           <div 
             className="fixed top-0 left-0 h-full w-3/4 z-60 transform transition-transform duration-300 ease-in-out md:hidden"
-            style={{ backgroundColor: '#1E1E1E' }}
+            style={{ backgroundColor: '#2A2A2A' }}
           >
             {/* Header with close button */}
             <div className="p-6 border-b border-border/30">
