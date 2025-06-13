@@ -29,14 +29,18 @@ const MobileNav = () => {
       {/* Full-screen mobile menu overlay */}
       {isOpen && (
         <>
-          {/* Semi-transparent backdrop */}
+          {/* Semi-transparent backdrop with proper opacity */}
           <div 
             className="fixed inset-0 bg-black/60 z-50 md:hidden" 
             onClick={closeMenu}
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}
           />
 
-          {/* Menu panel sliding from left */}
-          <div className="fixed top-0 left-0 h-full w-3/4 bg-[#1E1E1E] z-60 transform transition-transform duration-300 ease-in-out md:hidden">
+          {/* Menu panel sliding from left with solid background */}
+          <div 
+            className="fixed top-0 left-0 h-full w-3/4 z-60 transform transition-transform duration-300 ease-in-out md:hidden"
+            style={{ backgroundColor: '#1E1E1E' }}
+          >
             {/* Header with close button */}
             <div className="p-6 border-b border-border/30">
               <div className="flex items-center justify-between">
@@ -52,8 +56,8 @@ const MobileNav = () => {
               </div>
             </div>
 
-            {/* Navigation items */}
-            <nav className="p-6 space-y-3">
+            {/* Navigation items with proper padding */}
+            <nav className="p-4 space-y-3">
               <Link 
                 to="/" 
                 onClick={closeMenu}
@@ -102,8 +106,8 @@ const MobileNav = () => {
               )}
             </nav>
 
-            {/* User section at bottom */}
-            <div className="absolute bottom-6 left-6 right-6">
+            {/* User section at bottom with proper spacing */}
+            <div className="absolute bottom-6 left-4 right-4">
               {user ? (
                 <div className="space-y-3">
                   <div className="bg-[#2A2A2A] p-4 rounded-lg">
