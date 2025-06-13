@@ -1,10 +1,13 @@
 
 import PolicyClarifier from '@/components/PolicyClarifier';
+import Header from '@/components/Header';
 
 const Chat = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 py-8 px-4">
-      <div className="container mx-auto max-w-4xl">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
+      <Header />
+      
+      <div className="container mx-auto max-w-4xl py-8 px-4">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold tracking-tight mb-4">
             Policy Clarifier Chat Widget

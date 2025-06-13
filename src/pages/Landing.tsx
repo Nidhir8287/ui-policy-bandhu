@@ -1,10 +1,10 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { MessageCircle, Shield, Clock, CheckCircle, Users, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import PolicyClarifier from '@/components/PolicyClarifier';
+import Header from '@/components/Header';
 
 const Landing = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -86,15 +86,7 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Sticky Header */}
-      <header className="sticky top-0 z-40 bg-background/95 backdrop-blur border-b">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold text-primary">PolicyBadhu</div>
-          <Button onClick={() => setIsChatOpen(true)} className="bg-primary hover:bg-primary/90">
-            Chat Now
-          </Button>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section className="py-20 px-4 text-center bg-gradient-to-br from-primary/5 to-primary/10">

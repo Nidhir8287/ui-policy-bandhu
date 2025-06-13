@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,6 +5,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Loader2, MessageCircle, ArrowLeft, RotateCcw, CheckCircle } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
 
 type Screen = 'welcome' | 'askQuestion' | 'retrieveContext' | 'getAnswer' | 'followUp' | 'done';
 
@@ -15,6 +16,7 @@ interface ChatMessage {
 }
 
 const PolicyClarifier = () => {
+  const { user } = useAuth();
   const [currentScreen, setCurrentScreen] = useState<Screen>('welcome');
   const [policyName, setPolicyName] = useState('');
   const [userQuestion, setUserQuestion] = useState('');
@@ -36,6 +38,22 @@ const PolicyClarifier = () => {
 
   const addMessage = (type: 'bot' | 'user', content: string) => {
     setMessages(prev => [...prev, { type, content }]);
+  };
+
+  const saveChatHistory = async (question: string, response: string) => {
+    if (!user) return;
+
+    try {
+      await supabase
+        .from('chat_history')
+        .insert({
+          user_id: user.id,
+          message: question,
+          response: response
+        });
+    } catch (error) {
+      console.error('Error saving chat history:', error);
+    }
   };
 
   const handlePolicySelect = (selectedPolicy: string) => {
@@ -64,6 +82,10 @@ const PolicyClarifier = () => {
         
         setAnswer(mockAnswer);
         addMessage('bot', mockAnswer);
+        
+        // Save to chat history if user is logged in
+        saveChatHistory(userQuestion, mockAnswer);
+        
         setCurrentScreen('followUp');
       }, 2000);
     }, 1500);
@@ -196,6 +218,11 @@ const PolicyClarifier = () => {
         <CardTitle className="flex items-center gap-2">
           <MessageCircle className="h-6 w-6" />
           Policy Clarifier
+          {user && (
+            <span className="text-xs bg-primary-foreground/20 px-2 py-1 rounded-full ml-auto">
+              History Saved
+            </span>
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0">
