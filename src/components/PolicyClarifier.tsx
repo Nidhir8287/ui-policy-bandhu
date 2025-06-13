@@ -91,7 +91,7 @@ const PolicyClarifier = () => {
     }, 1500);
   };
 
-  const handleAskAnother = () => {
+  const handleAskAn = () => {
     setUserQuestion('');
     addMessage('bot', `What else would you like to know about ${policyName}?`);
     setCurrentScreen('askQuestion');
@@ -116,7 +116,7 @@ const PolicyClarifier = () => {
         return (
           <div className="space-y-4">
             <Select value={policyName} onValueChange={handlePolicySelect}>
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="w-full input-field">
                 <SelectValue placeholder="Select a policy..." />
               </SelectTrigger>
               <SelectContent>
@@ -137,13 +137,13 @@ const PolicyClarifier = () => {
               value={userQuestion}
               onChange={(e) => setUserQuestion(e.target.value)}
               placeholder="Type your question here..."
-              className="min-h-[100px] resize-none"
+              className="min-h-[100px] resize-none input-field"
             />
             <div className="flex gap-2">
               <Button 
                 onClick={handleQuestionSubmit}
                 disabled={!userQuestion.trim()}
-                className="flex-1"
+                className="flex-1 gradient-button text-white hover-scale"
               >
                 Ask Question
               </Button>
@@ -151,6 +151,7 @@ const PolicyClarifier = () => {
                 variant="outline" 
                 onClick={handleChangePolicy}
                 size="icon"
+                className="btn-secondary hover-scale"
               >
                 <ArrowLeft className="h-4 w-4" />
               </Button>
@@ -163,7 +164,7 @@ const PolicyClarifier = () => {
         return (
           <div className="flex flex-col items-center justify-center py-8 space-y-4">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-mid">
               {currentScreen === 'retrieveContext' 
                 ? 'Searching for relevant information...' 
                 : 'Generating your answer...'}
@@ -175,13 +176,13 @@ const PolicyClarifier = () => {
         return (
           <div className="space-y-3">
             <div className="grid grid-cols-1 gap-2">
-              <Button onClick={handleAskAnother} variant="default">
+              <Button onClick={handleAskAn} className="gradient-button text-white hover-scale">
                 Ask another question
               </Button>
-              <Button onClick={handleChangePolicy} variant="outline">
+              <Button onClick={handleChangePolicy} variant="outline" className="btn-secondary hover-scale">
                 Change policy
               </Button>
-              <Button onClick={handleDone} variant="secondary">
+              <Button onClick={handleDone} variant="secondary" className="hover-scale">
                 Done
               </Button>
             </div>
@@ -192,7 +193,7 @@ const PolicyClarifier = () => {
         return (
           <div className="flex flex-col items-center justify-center py-8 space-y-4">
             <CheckCircle className="h-12 w-12 text-green-500" />
-            <p className="text-center text-muted-foreground">
+            <p className="text-center text-mid">
               Thank you for using Policy Clarifier!
             </p>
             <Button onClick={() => {
@@ -201,7 +202,7 @@ const PolicyClarifier = () => {
               setUserQuestion('');
               setAnswer('');
               setCurrentScreen('welcome');
-            }} variant="outline">
+            }} variant="outline" className="btn-secondary hover-scale">
               Start Over
             </Button>
           </div>
@@ -213,13 +214,13 @@ const PolicyClarifier = () => {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto shadow-lg">
-      <CardHeader className="bg-primary text-primary-foreground">
+    <Card className="w-full max-w-2xl mx-auto card-shadow bg-card">
+      <CardHeader className="gradient-button text-white">
         <CardTitle className="flex items-center gap-2">
           <MessageCircle className="h-6 w-6" />
           Policy Clarifier
           {user && (
-            <span className="text-xs bg-primary-foreground/20 px-2 py-1 rounded-full ml-auto">
+            <span className="text-xs bg-white/20 px-2 py-1 rounded-full ml-auto">
               History Saved
             </span>
           )}
@@ -227,7 +228,7 @@ const PolicyClarifier = () => {
       </CardHeader>
       <CardContent className="p-0">
         {/* Chat Messages */}
-        <div className="h-96 overflow-y-auto p-4 space-y-4 border-b">
+        <div className="h-96 overflow-y-auto p-4 space-y-4 border-b border-border">
           {messages.map((message, index) => (
             <div
               key={index}
@@ -236,8 +237,8 @@ const PolicyClarifier = () => {
               <div
                 className={`max-w-[80%] rounded-lg px-4 py-2 ${
                   message.type === 'user'
-                    ? 'bg-primary text-primary-foreground ml-auto'
-                    : 'bg-muted text-muted-foreground'
+                    ? 'chat-bubble-user'
+                    : 'chat-bubble-bot'
                 }`}
               >
                 <p className="text-sm whitespace-pre-wrap">{message.content}</p>
