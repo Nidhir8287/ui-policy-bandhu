@@ -39,7 +39,7 @@ const MobileNav = () => {
           {/* Menu panel sliding from left with solid background */}
           <div 
             className="fixed top-0 left-0 h-full w-3/4 z-60 transform transition-transform duration-300 ease-in-out md:hidden"
-            style={{ backgroundColor: '#2A2A2A' }}
+            style={{ backgroundColor: '#2A2A2A'; border:"2px solid green" }}
           >
             {/* Header with close button */}
             <div className="p-6 border-b border-border/30">
