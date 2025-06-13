@@ -44,7 +44,7 @@ const MobileNav = () => {
             {/* Header with close button */}
             <div className="p-6 border-b border-border/30">
               <div className="flex items-center justify-between">
-                <span className="text-xl font-bold text-primary">PolicyBadha</span>
+                <span className="text-xl font-bold text-primary">PolicyBadhu</span>
                 <Button
                   variant="ghost"
                   size="icon"
