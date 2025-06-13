@@ -89,7 +89,7 @@ const Landing = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="py-20 px-4 text-center bg-gradient-to-br from-primary/5 to-primary/10">
+      <section className="py-20 px-4 text-center bg-gradient-to-br from-primary/10 to-primary/5">
         <div className="container mx-auto max-w-4xl">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-foreground">
             PolicyBadhu: Your Insurance, Simplified
@@ -100,7 +100,7 @@ const Landing = () => {
           <Button 
             size="lg" 
             onClick={() => setIsChatOpen(true)}
-            className="bg-primary hover:bg-primary/90 text-lg px-8 py-4 h-auto"
+            className="gradient-button hover:gradient-button text-lg px-8 py-4 h-auto text-white"
           >
             Chat Now
           </Button>
@@ -110,16 +110,16 @@ const Landing = () => {
       {/* About the Product */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl font-bold text-center mb-12">Why PolicyBadhu?</h2>
+          <h2 className="text-4xl font-bold text-center mb-12 text-foreground">Why PolicyBadhu?</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {usps.map((usp, index) => (
-              <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
+              <Card key={index} className="p-6 hover:shadow-lg transition-shadow bg-card border-border/50">
                 <CardContent className="p-0">
                   <div className="flex items-start space-x-4">
                     <div className="text-primary mt-1">{usp.icon}</div>
                     <div>
-                      <h3 className="font-semibold mb-2">{usp.title}</h3>
+                      <h3 className="font-semibold mb-2 text-foreground">{usp.title}</h3>
                       <p className="text-sm text-muted-foreground">{usp.description}</p>
                     </div>
                   </div>
@@ -129,19 +129,19 @@ const Landing = () => {
           </div>
 
           {/* Stats Section */}
-          <div className="text-center bg-primary/5 rounded-lg p-8">
-            <p className="text-lg mb-4">
+          <div className="text-center bg-primary/10 rounded-lg p-8 border border-border/50">
+            <p className="text-lg mb-4 text-foreground">
               Trusted by <span className="font-bold text-primary">15,000+ users</span>, over{' '}
               <span className="font-bold text-primary">50,000 questions</span> answered in under 10 seconds.
             </p>
             
             {/* Interactive Stats */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 max-w-2xl mx-auto">
-              <div className="bg-background rounded-lg p-6 hover:scale-105 transition-transform cursor-pointer">
+              <div className="bg-card border border-border/50 rounded-lg p-6 hover:scale-105 transition-transform cursor-pointer">
                 <div className="text-3xl font-bold text-primary mb-2">&lt; 10s</div>
                 <div className="text-sm text-muted-foreground">Average Response Time</div>
               </div>
-              <div className="bg-background rounded-lg p-6 hover:scale-105 transition-transform cursor-pointer">
+              <div className="bg-card border border-border/50 rounded-lg p-6 hover:scale-105 transition-transform cursor-pointer">
                 <div className="text-3xl font-bold text-primary mb-2">98%</div>
                 <div className="text-sm text-muted-foreground">Clarity Rating</div>
               </div>
@@ -153,14 +153,14 @@ const Landing = () => {
       {/* Founders */}
       <section className="py-20 px-4 bg-muted/30">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-4xl font-bold text-center mb-12">Meet the Founders</h2>
+          <h2 className="text-4xl font-bold text-center mb-12 text-foreground">Meet the Founders</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="text-center">
               <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 mx-auto mb-6 flex items-center justify-center">
                 <Users className="h-16 w-16 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-4">Priya Sharma</h3>
+              <h3 className="text-xl font-semibold mb-4 text-foreground">Priya Sharma</h3>
               <p className="text-muted-foreground">
                 Priya, ex-insurer analyst turned PM, built PolicyBadhu to cut through policy confusion.
               </p>
@@ -170,7 +170,7 @@ const Landing = () => {
               <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 mx-auto mb-6 flex items-center justify-center">
                 <Users className="h-16 w-16 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-4">Arjun Patel</h3>
+              <h3 className="text-xl font-semibold mb-4 text-foreground">Arjun Patel</h3>
               <p className="text-muted-foreground">
                 Arjun, tech lead and customer advocate, ensures every answer is clear and accurate.
               </p>
@@ -182,10 +182,10 @@ const Landing = () => {
       {/* Customer Testimonials */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-4xl font-bold text-center mb-12">What Our Users Are Saying</h2>
+          <h2 className="text-4xl font-bold text-center mb-12 text-foreground">What Our Users Are Saying</h2>
           
           <div className="relative">
-            <Card className="p-8">
+            <Card className="p-8 bg-card border-border/50">
               <CardContent className="p-0 text-center">
                 <div className="flex justify-center mb-4">
                   {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
@@ -199,11 +199,11 @@ const Landing = () => {
                   className="w-16 h-16 rounded-full mx-auto mb-4"
                 />
                 
-                <blockquote className="text-lg mb-4 italic">
+                <blockquote className="text-lg mb-4 italic text-foreground">
                   "{testimonials[currentTestimonial].quote}"
                 </blockquote>
                 
-                <cite className="font-semibold">
+                <cite className="font-semibold text-foreground">
                   — {testimonials[currentTestimonial].name}
                 </cite>
               </CardContent>
@@ -212,7 +212,7 @@ const Landing = () => {
             <Button
               variant="outline"
               size="icon"
-              className="absolute left-4 top-1/2 transform -translate-y-1/2"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 border-border/50 hover:bg-accent"
               onClick={prevTestimonial}
             >
               <ChevronLeft className="h-4 w-4" />
@@ -221,7 +221,7 @@ const Landing = () => {
             <Button
               variant="outline"
               size="icon"
-              className="absolute right-4 top-1/2 transform -translate-y-1/2"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 border-border/50 hover:bg-accent"
               onClick={nextTestimonial}
             >
               <ChevronRight className="h-4 w-4" />
@@ -231,7 +231,7 @@ const Landing = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-muted py-12 px-4">
+      <footer className="gradient-footer py-12 px-4 border-t border-border/50">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
@@ -242,7 +242,7 @@ const Landing = () => {
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Quick Links</h4>
+              <h4 className="font-semibold mb-4 text-foreground">Quick Links</h4>
               <div className="space-y-2 text-sm">
                 <div><a href="#" className="text-muted-foreground hover:text-primary">Life Insurance</a></div>
                 <div><a href="#" className="text-muted-foreground hover:text-primary">Health Insurance</a></div>
@@ -252,7 +252,7 @@ const Landing = () => {
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Contact</h4>
+              <h4 className="font-semibold mb-4 text-foreground">Contact</h4>
               <div className="text-sm text-muted-foreground space-y-2">
                 <div>support@policybadhu.com</div>
                 <div className="space-x-4">
@@ -263,12 +263,12 @@ const Landing = () => {
             </div>
           </div>
           
-          <div className="border-t pt-8">
-            <div className="mb-4 p-4 bg-background rounded-lg border-l-4 border-primary">
-              <p className="text-sm italic">
+          <div className="border-t border-border/50 pt-8">
+            <div className="mb-4 p-4 bg-card rounded-lg border-l-4 border-primary">
+              <p className="text-sm italic text-foreground">
                 "PolicyBadhu's clarity engine is a game-changer for training new advisors."
               </p>
-              <p className="text-sm font-semibold mt-2">— Rajesh Kumar, Insurance Expert</p>
+              <p className="text-sm font-semibold mt-2 text-foreground">— Rajesh Kumar, Insurance Expert</p>
             </div>
             
             <div className="text-center text-sm text-muted-foreground">
@@ -281,7 +281,7 @@ const Landing = () => {
       {/* Floating Chat Button */}
       <Button
         onClick={() => setIsChatOpen(true)}
-        className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-primary hover:bg-primary/90 shadow-lg animate-pulse z-50"
+        className="fixed bottom-6 right-6 w-16 h-16 rounded-full gradient-button hover:gradient-button shadow-lg animate-gentle-pulse z-50 text-white"
         title="Have a question? Click to chat."
       >
         <MessageCircle className="h-6 w-6" />
@@ -295,7 +295,7 @@ const Landing = () => {
               onClick={() => setIsChatOpen(false)}
               variant="outline"
               size="icon"
-              className="absolute top-4 right-4 z-10 bg-background"
+              className="absolute top-4 right-4 z-10 bg-card border-border/50"
             >
               ×
             </Button>

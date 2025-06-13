@@ -4,12 +4,12 @@ import Header from '@/components/Header';
 
 const Chat = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
+    <div className="min-h-screen bg-background">
       <Header />
       
       <div className="container mx-auto max-w-4xl py-8 px-4">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold tracking-tight mb-4">
+          <h1 className="text-4xl font-bold tracking-tight mb-4 text-foreground">
             Policy Clarifier Chat Widget
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -22,20 +22,20 @@ const Chat = () => {
         </div>
         
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-          <div className="p-6 rounded-lg bg-card border">
-            <h3 className="font-semibold mb-2">Smart Policy Selection</h3>
+          <div className="p-6 rounded-lg bg-card border border-border/50">
+            <h3 className="font-semibold mb-2 text-foreground">Smart Policy Selection</h3>
             <p className="text-sm text-muted-foreground">
               Choose from predefined policies or customize the list for your organization
             </p>
           </div>
-          <div className="p-6 rounded-lg bg-card border">
-            <h3 className="font-semibold mb-2">Natural Language Queries</h3>
+          <div className="p-6 rounded-lg bg-card border border-border/50">
+            <h3 className="font-semibold mb-2 text-foreground">Natural Language Queries</h3>
             <p className="text-sm text-muted-foreground">
               Ask questions in plain English and get relevant, contextualized answers
             </p>
           </div>
-          <div className="p-6 rounded-lg bg-card border">
-            <h3 className="font-semibold mb-2">Interactive Flow</h3>
+          <div className="p-6 rounded-lg bg-card border border-border/50">
+            <h3 className="font-semibold mb-2 text-foreground">Interactive Flow</h3>
             <p className="text-sm text-muted-foreground">
               Seamless conversation flow with options to ask follow-ups or switch policies
             </p>

@@ -9,7 +9,7 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <header className="sticky top-0 z-40 bg-background/95 backdrop-blur border-b">
+    <header className="sticky top-0 z-40 gradient-header backdrop-blur border-b border-border/50">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-6">
           <Link to="/" className="text-2xl font-bold text-primary">
@@ -21,7 +21,7 @@ const Header = () => {
               to="/" 
               className={`flex items-center space-x-1 px-3 py-2 rounded-md transition-colors ${
                 location.pathname === '/' 
-                  ? 'bg-primary/10 text-primary' 
+                  ? 'bg-primary/20 text-primary' 
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -33,7 +33,7 @@ const Header = () => {
               to="/chat" 
               className={`flex items-center space-x-1 px-3 py-2 rounded-md transition-colors ${
                 location.pathname === '/chat' 
-                  ? 'bg-primary/10 text-primary' 
+                  ? 'bg-primary/20 text-primary' 
                   : 'text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -46,7 +46,7 @@ const Header = () => {
                 to="/history" 
                 className={`flex items-center space-x-1 px-3 py-2 rounded-md transition-colors ${
                   location.pathname === '/history' 
-                    ? 'bg-primary/10 text-primary' 
+                    ? 'bg-primary/20 text-primary' 
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
@@ -64,13 +64,13 @@ const Header = () => {
             <div className="flex items-center space-x-3">
               <div className="flex items-center space-x-2 text-sm">
                 <User className="h-4 w-4" />
-                <span>{user.email}</span>
+                <span>{user.user_metadata?.name || user.email}</span>
               </div>
               <Button 
                 onClick={signOut}
                 variant="outline"
                 size="sm"
-                className="flex items-center space-x-1"
+                className="flex items-center space-x-1 border-border/50 hover:bg-accent"
               >
                 <LogOut className="h-4 w-4" />
                 <span>Sign Out</span>
@@ -79,7 +79,7 @@ const Header = () => {
           ) : (
             <Button 
               onClick={signInWithGoogle}
-              className="bg-primary hover:bg-primary/90 flex items-center space-x-2"
+              className="gradient-button hover:gradient-button flex items-center space-x-2 text-white"
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
