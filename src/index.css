@@ -1,92 +1,50 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 222.2 84% 7.5%; /* Dark background #121212 */
+    --foreground: 210 40% 87.8%; /* Light text #E0E0E0 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 11.8%; /* Dark card background #1E1E1E */
+    --card-foreground: 210 40% 87.8%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 11.8%;
+    --popover-foreground: 210 40% 87.8%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 217 100% 50%; /* Updated to #0055FF */
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 195 100% 50%; /* Updated to #00C2FF */
+    --secondary-foreground: 222.2 84% 7.5%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 16.5%; /* Updated to #2A2A2A */
+    --muted-foreground: 0 0% 62.7%; /* Updated to #A0A0A0 */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 0 0% 16.5%;
+    --accent-foreground: 210 40% 87.8%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 0 0% 26.7%; /* Updated to #444444 */
+    --input: 0 0% 16.5%; /* Updated to #2A2A2A */
+    --ring: 217 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem; /* Updated to 12px */
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 0 0% 11.8%;
+    --sidebar-foreground: 210 40% 87.8%;
+    --sidebar-primary: 217 100% 50%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 0 0% 16.5%;
+    --sidebar-accent-foreground: 210 40% 87.8%;
+    --sidebar-border: 0 0% 26.7%;
+    --sidebar-ring: 217 100% 50%;
   }
 }
 
@@ -97,5 +55,322 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 400;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', 'Roboto', sans-serif;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-weight: 700;
+  }
+
+  /* Responsive typography */
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+  }
+
+  /* Ensure images are responsive */
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Custom gradient backgrounds */
+.gradient-header {
+  background: linear-gradient(135deg, #1E1E1E 0%, #121212 100%);
+}
+
+.gradient-footer {
+  background: linear-gradient(135deg, #121212 0%, #1E1E1E 100%);
+}
+
+.gradient-button {
+  background: linear-gradient(90deg, #0055FF, #00C2FF);
+  transition: all 200ms ease;
+}
+
+.gradient-button:hover {
+  background: linear-gradient(90deg, #0048E6, #00B8E6);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 85, 255, 0.3);
+}
+
+.gradient-hero {
+  background: linear-gradient(135deg, #0055FF 0%, #00C2FF 100%);
+}
+
+/* Smooth scroll animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom animation for pulsing chat button */
+@keyframes gentle-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-gentle-pulse {
+  animation: gentle-pulse 10s ease-in-out infinite;
+}
+
+/* Fade in animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 200ms ease-out;
+}
+
+/* Button hover scale */
+.hover-scale {
+  transition: transform 200ms ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+@media (max-width: 640px) {
+  .hover-scale:hover {
+    transform: none; /* Disable hover effects on mobile */
+  }
+}
+
+/* Input styles */
+.input-field {
+  background-color: #2A2A2A;
+  border: 1px solid #444444;
+  color: #E0E0E0;
+  min-height: 44px; /* Touch target size */
+}
+
+.input-field::placeholder {
+  color: #666666;
+}
+
+.input-field:focus {
+  border-color: #0055FF;
+  box-shadow: 0 0 0 2px rgba(0, 85, 255, 0.2);
+}
+
+/* Chat bubbles */
+.chat-bubble-user {
+  background-color: #0055FF;
+  color: #121212;
+  margin-left: auto;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.chat-bubble-bot {
+  background-color: #2A2A2A;
+  color: #E0E0E0;
+  margin-right: auto;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Card shadows */
+.card-shadow {
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Container max width with responsive behavior */
+.container-custom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-custom {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Section padding with responsive behavior */
+.section-padding {
+  padding: 2rem 0;
+}
+
+@media (min-width: 640px) {
+  .section-padding {
+    padding: 3rem 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding: 4rem 0;
+  }
+}
+
+/* Text colors */
+.text-high {
+  color: #E0E0E0;
+}
+
+.text-mid {
+  color: #A0A0A0;
+}
+
+.text-low {
+  color: #666666;
+}
+
+/* Secondary button styles */
+.btn-secondary {
+  border: 1px solid #0055FF;
+  background: transparent;
+  color: #0055FF;
+  transition: all 200ms ease;
+  min-height: 44px; /* Touch target size */
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 85, 255, 0.1);
+}
+
+/* Mobile-specific styles */
+@media (max-width: 640px) {
+  /* Full-width buttons on mobile */
+  .mobile-full-width {
+    width: 100%;
+  }
+
+  /* Larger touch targets on mobile */
+  button, .btn, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Stack elements vertically on mobile */
+  .mobile-stack {
+    flex-direction: column;
+  }
+
+  .mobile-stack > * {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .mobile-stack > *:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Hide desktop-only elements */
+  .desktop-only {
+    display: none;
+  }
+
+  /* Adjust padding for mobile */
+  .mobile-padding {
+    padding: 1rem;
+  }
+
+  /* Mobile typography adjustments */
+  .mobile-text-sm {
+    font-size: 0.875rem;
+  }
+
+  .mobile-text-base {
+    font-size: 1rem;
+  }
+
+  .mobile-text-lg {
+    font-size: 1.125rem;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tablet-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1025px) {
+  .desktop-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .desktop-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .text-mid {
+    color: #FFFFFF;
+  }
+  
+  .text-low {
+    color: #CCCCCC;
+  }
+}
+
+/* Focus indicators for keyboard navigation */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #0055FF;
+  outline-offset: 2px;
 }
