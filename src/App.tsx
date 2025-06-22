@@ -9,6 +9,10 @@ import Landing from "./pages/Landing";
 import Chat from "./pages/Chat";
 import History from "./pages/History";
 import NotFound from "./pages/NotFound";
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import RefundPolicy from "./pages/RefundPolicy";
+import Disclaimer from "./pages/Disclaimer";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +27,10 @@ const App = () => (
             <Route path="/" element={<Landing />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/history" element={<History />} />
+            <Route path="/terms-and-services" element={<TermsOfService />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/disclaimer" element={<Disclaimer />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

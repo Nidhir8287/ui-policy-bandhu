@@ -1,12 +1,12 @@
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
+import { Link, useLocation } from "react-router-dom";
+import { User, LogOut, History, MessageCircle, Home } from "lucide-react";
+import MobileNav from "./MobileNav";
+import { useState, useEffect } from "react";
+import ChatIcon from "@/icons/ChatIcon";
 
-import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/useAuth';
-import { Link, useLocation } from 'react-router-dom';
-import { User, LogOut, History, MessageCircle, Home } from 'lucide-react';
-import MobileNav from './MobileNav';
-import { useState, useEffect } from 'react';
-
-const Header = () => {
+const Header = ({ openChat }: { openChat?: ()=>void }) => {
   const { user, signInWithGoogle, signOut, loading } = useAuth();
   const location = useLocation();
   const [isVisible, setIsVisible] = useState(true);
@@ -15,7 +15,7 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       // Only apply auto-hide on mobile (≤768px)
       if (window.innerWidth <= 768) {
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
@@ -29,25 +29,49 @@ const Header = () => {
         // Always visible on desktop
         setIsVisible(true);
       }
-      
+
       setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
   return (
-    <header className={`sticky top-0 z-40 gradient-header backdrop-blur border-b border-border/50 transition-transform duration-300 ${
-      isVisible ? 'translate-y-0' : '-translate-y-full'
-    }`}>
-      <div className="container-custom py-3 px-4 flex justify-between items-center">
+    <header
+      className={`bg-white sticky top-0 z-40 flex items-center border-b border-white h-20 border-border/50 transition-transform duration-300 ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
+      <div className="mx-5 flex justify-between w-full items-center">
+        <div className="text-black">
+          <img src="public/logo.png" />
+        </div>
+        <div className="flex items-center gap-10">
+          <span className="text-[#213559] font-medium">HOME</span>
+          <span className="text-[#213559] font-medium">LOGIN</span>
+          {openChat && (
+            <button onClick={openChat}>
+              <ChatIcon />
+            </button>
+          )}
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default Header;
+
+/*
+<div className="container-custom py-3 px-4 flex justify-between items-center">
         <div className="flex items-center space-x-6">
           <Link to="/" className="text-xl md:text-2xl font-bold text-primary hover-scale">
             PolicyBadhu
           </Link>
           
-          {/* Desktop Navigation */}
+          /* Desktop Navigation */
+/*
           <nav className="hidden md:flex items-center space-x-4">
             <Link 
               to="/" 
@@ -94,7 +118,8 @@ const Header = () => {
             <div className="w-6 h-6 md:w-8 md:h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin" />
           ) : user ? (
             <>
-              {/* Desktop user info */}
+              {/* Desktop user info */
+/*
               <div className="hidden md:flex items-center space-x-3">
                 <div className="flex items-center space-x-2 text-sm text-high">
                   <User className="h-4 w-4 stroke-mid" />
@@ -129,12 +154,8 @@ const Header = () => {
             </Button>
           )}
           
-          {/* Mobile Navigation */}
+          /* Mobile Navigation */
+/*
           <MobileNav />
         </div>
-      </div>
-    </header>
-  );
-};
-
-export default Header;
+      </div> */

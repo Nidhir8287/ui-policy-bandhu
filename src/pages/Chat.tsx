@@ -47,7 +47,7 @@ const Chat = () => {
         </div>
       </div>
 
-      <BackToTop />
+      {/* <BackToTop /> */}
     </div>
   );
 };

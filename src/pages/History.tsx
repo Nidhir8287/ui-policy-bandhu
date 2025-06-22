@@ -174,7 +174,7 @@ const History = () => {
         )}
       </div>
 
-      <BackToTop />
+      {/* <BackToTop /> */}
     </div>
   );
 };
