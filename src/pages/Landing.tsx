@@ -12,6 +12,8 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
+  LinkedinIcon,
+  Linkedin,
 } from "lucide-react";
 import PolicyClarifier from "@/components/PolicyClarifier";
 import Header from "@/components/Header";
@@ -227,11 +229,19 @@ const Landing = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
             <div className="text-center animate-fade-in">
               <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 mx-auto mb-4 md:mb-6 flex items-center justify-center card-shadow">
-                <Users className="h-12 w-12 md:h-16 md:w-16 text-primary" />
+                {/* <Users className="h-12 w-12 md:h-16 md:w-16 text-primary" /> */}
+                <img src="https://media.licdn.com/dms/image/v2/D5603AQFU6gly5Bitpg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1732460302348?e=1756339200&v=beta&t=MQJ1XWN1BXrkik0bqNWJutyeNmgVdv9amBnUDHMBxSU" className="rounded-full" />
               </div>
-              <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-high">
-                Priya Sharma
-              </h3>
+              <div className="flex flex-row gap-2 items-center justify-center mb-3 md:mb-4 ">
+                <div className="flex items-center">
+                  <h3 className="text-lg md:text-xl font-semibold text-high">
+                    Nidhi Rajput
+                  </h3>
+                </div>
+                <a className="flex items-center cursor-pointer" href="https://www.linkedin.com/in/nidhi-rajput-kumar/" target="_blank">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" className="w-5 h-5" />
+                </a>
+              </div>
               <p className="text-mid text-sm md:text-base leading-relaxed">
                 Priya, ex-insurer analyst turned PM, built PolicyBadhu to cut
                 through policy confusion.
@@ -240,11 +250,19 @@ const Landing = () => {
 
             <div className="text-center animate-fade-in">
               <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 mx-auto mb-4 md:mb-6 flex items-center justify-center card-shadow">
-                <Users className="h-12 w-12 md:h-16 md:w-16 text-primary" />
+                {/* <Users className="h-12 w-12 md:h-16 md:w-16 text-primary" /> */}
+                <img src="https://media.licdn.com/dms/image/v2/D4D03AQE0Cm5-mQ5t8Q/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1693666401042?e=1756339200&v=beta&t=Em3UA0vcH_7z17SS52W3Zt8tXJhC7XuzCbemRnZ2YuU" className="rounded-full" />
               </div>
-              <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-high">
-                Arjun Patel
-              </h3>
+              <div className="flex flex-row gap-2 items-center justify-center mb-3 md:mb-4 ">
+                <div className="flex items-center">
+                  <h3 className="text-lg md:text-xl font-semibold text-high">
+                    Shikhar Srivastava
+                  </h3>
+                </div>
+                <a className="flex items-center cursor-pointer" target="_blank" href="https://www.linkedin.com/in/shikhar2srivastava2/">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" className="w-5 h-5" />
+                </a>
+              </div>
               <p className="text-mid text-sm md:text-base leading-relaxed">
                 Arjun, tech lead and customer advocate, ensures every answer is
                 clear and accurate.
