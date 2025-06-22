@@ -389,11 +389,11 @@ const Landing = () => {
       {/* Floating Chat Button */}
       <div
         onClick={() => setIsChatOpen(true)}
-        className="fixed bottom-4 right-4 "
+        className="fixed bottom-4 right-4 hover:cursor-pointer"
         title="Have a question? Click to chat."
         aria-label="Open chat"
       >
-        <ChatIcon className="w-6 h-6 md:w-8 md:h-8" />
+        <ChatIcon />
       </div>
 
 
