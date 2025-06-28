@@ -29,28 +29,28 @@ const Landing = () => {
 
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      rating: 5,
+      name: "Sristi Srivastav",
+      rating: 4,
       quote:
         "Finally, someone who explains my health insurance without trying to sell me something else. PolicyBadhu gave me straight answers in seconds.",
       avatar:
-        "https://images.unsplash.com/photo-1494790108755-2616b332e234?w=64&h=64&fit=crop&crop=face",
+        "https://media.licdn.com/dms/image/v2/D4D03AQFPZQ_hDIwJSA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1732553760781?e=1756339200&v=beta&t=W_sCvAKpyOsS5qu_AZWnroMz3qOVjZ9Pw9I0_SnlvLI",
     },
     {
-      name: "Michael Chen",
-      rating: 5,
+      name: "Vimmi Priyadarshini",
+      rating: 4.5,
       quote:
         "I was confused about my car insurance coverage. PolicyBadhu broke it down in simple terms - no jargon, just facts.",
       avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face",
+        "https://media.licdn.com/dms/image/v2/C4E03AQFIDwqYR-xRyA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1654815774394?e=1756339200&v=beta&t=zA0a0Ah7pfHWKQLPuNssTBCEVXbmg2TWrjPfFkHJSyo",
     },
     {
-      name: "Emily Rodriguez",
-      rating: 5,
+      name: "Tanishq Saini",
+      rating: 4,
       quote:
         "Best tool for understanding insurance policies. Quick, accurate, and completely unbiased. Exactly what I needed.",
       avatar:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face",
+        "https://media.licdn.com/dms/image/v2/C4D03AQHrzTku6I-yrQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1640623159014?e=1756339200&v=beta&t=-T2jLHhEYlTeeRl07zZlyNBSx-iKrece_f--lV3RD20",
     },
     {
       name: "David Park",
@@ -127,7 +127,7 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header openChat={()=>setIsChatOpen(true)} />
+      <Header openChat={() => setIsChatOpen(true)} />
 
       {/* Hero Section */}
       <section className="section-padding px-4 bg-[#C8D2DE]">
@@ -164,14 +164,16 @@ const Landing = () => {
                 Ask Bandhu, Let the truth behind your policy—unlocked
               </div>
               <div className="bg-[#213559] px-3 py-2 rounded-md">
-                <button onClick={() => setIsChatOpen(true)}>
-                  CHAT NOW
-                </button>
+                <button onClick={() => setIsChatOpen(true)}>CHAT NOW</button>
               </div>
             </div>
           </div>
           <div className="border border-blue-50 rounded-lg">
-            <img src="public/mobile-photo.png" className="w-full h-full object-cover" alt="Mobile" />
+            <img
+              src="public/mobile-photo.png"
+              className="w-full h-full object-cover"
+              alt="Mobile"
+            />
           </div>
         </div>
       </section>
@@ -209,13 +211,12 @@ const Landing = () => {
           </div>
 
           {/* Stats Section */}
-          
         </div>
       </section>
-      
+
       {/* how it works */}
       <HowItWorks onChatClick={() => setIsChatOpen(true)} />
-        
+
       {/* Pain points */}
       <PainPoints />
 
@@ -230,7 +231,10 @@ const Landing = () => {
             <div className="text-center animate-fade-in">
               <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 mx-auto mb-4 md:mb-6 flex items-center justify-center card-shadow">
                 {/* <Users className="h-12 w-12 md:h-16 md:w-16 text-primary" /> */}
-                <img src="https://media.licdn.com/dms/image/v2/D5603AQFU6gly5Bitpg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1732460302348?e=1756339200&v=beta&t=MQJ1XWN1BXrkik0bqNWJutyeNmgVdv9amBnUDHMBxSU" className="rounded-full" />
+                <img
+                  src="https://media.licdn.com/dms/image/v2/D5603AQFU6gly5Bitpg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1732460302348?e=1756339200&v=beta&t=MQJ1XWN1BXrkik0bqNWJutyeNmgVdv9amBnUDHMBxSU"
+                  className="rounded-full"
+                />
               </div>
               <div className="flex flex-row gap-2 items-center justify-center mb-3 md:mb-4 ">
                 <div className="flex items-center">
@@ -238,20 +242,30 @@ const Landing = () => {
                     Nidhi Rajput
                   </h3>
                 </div>
-                <a className="flex items-center cursor-pointer" href="https://www.linkedin.com/in/nidhi-rajput-kumar/" target="_blank">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" className="w-5 h-5" />
+                <a
+                  className="flex items-center cursor-pointer"
+                  href="https://www.linkedin.com/in/nidhi-rajput-kumar/"
+                  target="_blank"
+                >
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
+                    className="w-5 h-5"
+                  />
                 </a>
               </div>
               <p className="text-mid text-sm md:text-base leading-relaxed">
-                Priya, ex-insurer analyst turned PM, built PolicyBadhu to cut
-                through policy confusion.
+                Peace of mind shouldn’t come with pressure, paperwork, or
+                persuasion. It should come with clarity.
               </p>
             </div>
 
             <div className="text-center animate-fade-in">
               <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 mx-auto mb-4 md:mb-6 flex items-center justify-center card-shadow">
                 {/* <Users className="h-12 w-12 md:h-16 md:w-16 text-primary" /> */}
-                <img src="https://media.licdn.com/dms/image/v2/D4D03AQE0Cm5-mQ5t8Q/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1693666401042?e=1756339200&v=beta&t=Em3UA0vcH_7z17SS52W3Zt8tXJhC7XuzCbemRnZ2YuU" className="rounded-full" />
+                <img
+                  src="https://media.licdn.com/dms/image/v2/D4D03AQE0Cm5-mQ5t8Q/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1693666401042?e=1756339200&v=beta&t=Em3UA0vcH_7z17SS52W3Zt8tXJhC7XuzCbemRnZ2YuU"
+                  className="rounded-full"
+                />
               </div>
               <div className="flex flex-row gap-2 items-center justify-center mb-3 md:mb-4 ">
                 <div className="flex items-center">
@@ -259,13 +273,21 @@ const Landing = () => {
                     Shikhar Srivastava
                   </h3>
                 </div>
-                <a className="flex items-center cursor-pointer" target="_blank" href="https://www.linkedin.com/in/shikhar2srivastava2/">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" className="w-5 h-5" />
+                <a
+                  className="flex items-center cursor-pointer"
+                  target="_blank"
+                  href="https://www.linkedin.com/in/shikhar2srivastava2/"
+                >
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
+                    className="w-5 h-5"
+                  />
                 </a>
               </div>
               <p className="text-mid text-sm md:text-base leading-relaxed">
-                Arjun, tech lead and customer advocate, ensures every answer is
-                clear and accurate.
+                I didn’t build Policy Bhanu to disrupt insurance. I built it so
+                no daughter ever has to beg 7 strangers to understand how to
+                protect her mother.
               </p>
             </div>
           </div>
@@ -282,7 +304,14 @@ const Landing = () => {
           <div className="relative max-w-4xl mx-auto">
             <Card className="p-6 md:p-8 bg-card border-border/50 card-shadow">
               <CardContent className="p-0 text-center">
-                <div className="flex justify-center mb-4">
+
+                <img
+                  src={testimonials[currentTestimonial].avatar}
+                  alt={testimonials[currentTestimonial].name}
+                  className="w-12 h-12 md:w-16 md:h-16 rounded-full mx-auto mb-4"
+                  loading="lazy"
+                />
+                {/* <div className="flex justify-center mb-4">
                   {[...Array(testimonials[currentTestimonial].rating)].map(
                     (_, i) => (
                       <Star
@@ -291,14 +320,7 @@ const Landing = () => {
                       />
                     )
                   )}
-                </div>
-
-                <img
-                  src={testimonials[currentTestimonial].avatar}
-                  alt={testimonials[currentTestimonial].name}
-                  className="w-12 h-12 md:w-16 md:h-16 rounded-full mx-auto mb-4"
-                  loading="lazy"
-                />
+                </div> */}
 
                 <blockquote className="text-base md:text-lg mb-4 italic text-high leading-relaxed px-4">
                   "{testimonials[currentTestimonial].quote}"
@@ -349,23 +371,35 @@ const Landing = () => {
                 Quick Links
               </h4>
               <div className="space-y-2 text-sm">
-                <Link className="text-mid hover:text-primary transition-colors min-h-[44px] block py-1" to="./privacy-policy">
-                    Privacy Policy
+                <Link
+                  className="text-mid hover:text-primary transition-colors min-h-[44px] block py-1"
+                  to="./privacy-policy"
+                >
+                  Privacy Policy
                 </Link>
                 <div>
-                <Link className="text-mid hover:text-primary transition-colors min-h-[44px] block py-1" to="./terms-and-services">
+                  <Link
+                    className="text-mid hover:text-primary transition-colors min-h-[44px] block py-1"
+                    to="./terms-and-services"
+                  >
                     Terms & Condition
-                </Link>
+                  </Link>
                 </div>
                 <div>
-                <Link className="text-mid hover:text-primary transition-colors min-h-[44px] block py-1" to="./disclaimer">
+                  <Link
+                    className="text-mid hover:text-primary transition-colors min-h-[44px] block py-1"
+                    to="./disclaimer"
+                  >
                     Disclaimer
-                </Link>
+                  </Link>
                 </div>
                 <div>
-                <Link className="text-mid hover:text-primary transition-colors min-h-[44px] block py-1" to="./refund-policy">
+                  <Link
+                    className="text-mid hover:text-primary transition-colors min-h-[44px] block py-1"
+                    to="./refund-policy"
+                  >
                     Refund Policy
-                </Link>
+                  </Link>
                 </div>
                 {/* <div>
                   <a
@@ -381,7 +415,7 @@ const Landing = () => {
             <div className="text-center md:text-left">
               <h4 className="font-semibold mb-3 md:mb-4 text-high">Contact</h4>
               <div className="text-sm text-mid space-y-2">
-                <div>support@policybadhu.com</div>
+                <div>care@policybadhu.info</div>
               </div>
             </div>
           </div>
@@ -413,7 +447,6 @@ const Landing = () => {
       >
         <ChatIcon />
       </div>
-
 
       {/* Chat Modal */}
       {isChatOpen && (
