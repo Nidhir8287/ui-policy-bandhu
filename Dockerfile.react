@@ -1,0 +1,16 @@
+# ─── Stage 1: Build your web assets ────────────────────────────────────────
+FROM node:22-alpine3.19 AS builder
+
+WORKDIR /frontend_React
+
+COPY . /frontend_React
+RUN npm ci
+RUN npx vite build
+
+# ─── Stage 2: Serve static assets ────────────────────────────────────────
+FROM node:22-alpine3.19
+WORKDIR /frontend_React
+COPY --from=builder /frontend_React/dist/ /frontend_React
+RUN npm install -g serve
+EXPOSE 3000
+CMD ["npx", "serve", "-s", "."]
