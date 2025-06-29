@@ -304,7 +304,6 @@ const Landing = () => {
           <div className="relative max-w-4xl mx-auto">
             <Card className="p-6 md:p-8 bg-card border-border/50 card-shadow">
               <CardContent className="p-0 text-center">
-
                 <img
                   src={testimonials[currentTestimonial].avatar}
                   alt={testimonials[currentTestimonial].name}
@@ -439,14 +438,14 @@ const Landing = () => {
       </footer>
 
       {/* Floating Chat Button */}
-      <div
+      {/* <div
         onClick={() => setIsChatOpen(true)}
         className="fixed bottom-4 right-4 hover:cursor-pointer"
         title="Have a question? Click to chat."
         aria-label="Open chat"
       >
         <ChatIcon />
-      </div>
+      </div> */}
 
       {/* Chat Modal */}
       {isChatOpen && (
