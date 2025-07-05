@@ -6,11 +6,13 @@ import MobileNav from "./MobileNav";
 import { useState, useEffect } from "react";
 import ChatIcon from "@/icons/ChatIcon";
 
-const Header = ({ openChat }: { openChat?: ()=>void }) => {
+const Header = ({ openChat }: { openChat?: () => void }) => {
   const { user, signInWithGoogle, signOut, loading } = useAuth();
   const location = useLocation();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+
+  console.log({ user });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,7 +51,18 @@ const Header = ({ openChat }: { openChat?: ()=>void }) => {
         </div>
         <div className="flex items-center gap-10">
           <span className="text-[#213559] font-medium">HOME</span>
-          <span className="text-[#213559] font-medium">LOGIN</span>
+          {!user || Object.keys(user).length === 0 ? (
+            <span
+              className="text-[#213559] font-medium"
+              onClick={signInWithGoogle}
+            >
+              LOGIN
+            </span>
+          ) : (
+            <span className="text-[#213559] font-medium" onClick={signOut}>
+              LOG OUT
+            </span>
+          )}
           {openChat && (
             <button onClick={openChat}>
               <ChatIcon />
