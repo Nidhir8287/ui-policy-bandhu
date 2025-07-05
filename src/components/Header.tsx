@@ -60,7 +60,7 @@ const Header = ({ openChat }: { openChat?: () => void }) => {
             </span>
           ) : (
             <span className="text-[#213559] font-medium" onClick={signOut}>
-              LOG OUT
+              LOGOUT
             </span>
           )}
           {openChat && (
