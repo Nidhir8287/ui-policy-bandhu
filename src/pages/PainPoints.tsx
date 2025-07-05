@@ -5,31 +5,31 @@ const painPoints = [
     title: "Misselling/Hidden Terms",
     description:
       "Over 30% of complaints arise from mis-selling or hidden policy terms.",
-    icon: "public/confusion.png",
+    icon: "/confusion.png",
   },
   {
     title: "Uninsured Population",
     description:
       "Around 40 crore Indians (~30%) remain uninsured, facing catastrophic expenses.",
-    icon: "public/high-risk.png",
+    icon: "/high-risk.png",
   },
   {
     title: "Claim Processing",
     description:
       "43% of individuals face difficulties in processing their insurance claims.",
-    icon: "public/process.png",
+    icon: "/process.png",
   },
   {
     title: "Confusing Policy Terms",
     description:
       "67% of people find the terms & conditions of policies to be confusing.",
-    icon: "public/confused.png",
+    icon: "/confused.png",
   },
   {
     title: "Reliance on Others",
     description:
       "58% of individuals depend on others when selecting their health insurance plans.",
-    icon: "public/certainty.png",
+    icon: "/certainty.png",
   },
 ];
 

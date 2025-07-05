@@ -47,7 +47,7 @@ const Header = ({ openChat }: { openChat?: () => void }) => {
     >
       <div className="mx-5 flex justify-between w-full items-center">
         <div className="text-black">
-          <img src="public/logo.png" />
+          <img src="/logo.png" />
         </div>
         <div className="flex items-center gap-10">
           <span className="text-[#213559] font-medium">HOME</span>

@@ -170,7 +170,7 @@ const Landing = () => {
           </div>
           <div className="border border-blue-50 rounded-lg">
             <img
-              src="public/mobile-photo.png"
+              src="/mobile-photo.png"
               className="w-full h-full object-cover"
               alt="Mobile"
             />
