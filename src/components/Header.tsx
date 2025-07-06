@@ -12,8 +12,6 @@ const Header = ({ openChat }: { openChat?: () => void }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  console.log({ user });
-
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;

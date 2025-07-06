@@ -45,6 +45,7 @@ const PolicyClarifier = ({ onClose }: { onClose ?: () => void }) => {
   const [policyName, setPolicyName] = useState("");
   const [userQuestion, setUserQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const [suggestions, setSuggestions] = useState([])
   // @ts-ignore
   const windowRef = useRef(null);
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -56,14 +57,19 @@ const PolicyClarifier = ({ onClose }: { onClose ?: () => void }) => {
   ]);
 
   const queryClient = useQueryClient();
+  
 
   const postChat = useMutation({
     mutationFn: postMessage,
     onSuccess: (data) => {
       setMessages((prev) => [
         ...prev,
-        { type: "bot", content: data.data.bot_reply.content },
+        { type: "bot", content: data.data.bot_reply.content.replace(/#\^\^#.*?#\^#\^#/gs, '')    // remove suggestions
+          .replace(/#\^\^\^#.*?#\^\^\^#/gs, '') // remove links
+          .trim() },
       ]);
+      const suggestions = [...data.data.bot_reply.content.matchAll(/#\^\^#(.*?)#\^#\^#/gs)].map(m => m[1].trim())
+      setSuggestions(suggestions)
       queryClient.invalidateQueries({ queryKey: ["postMessage"] });
     },
   });
@@ -73,7 +79,7 @@ const PolicyClarifier = ({ onClose }: { onClose ?: () => void }) => {
     onSuccess: (data) => {
       const earlierMessages = data.data[0].messages.map((message) => ({
         type: message.role === "user" ? "user" : "bot",
-        content: message.content,
+        content: message.content
       }));
       setMessages(earlierMessages);
       queryClient.invalidateQueries({ queryKey: ["getPrevConversations"] });
@@ -86,14 +92,14 @@ const PolicyClarifier = ({ onClose }: { onClose ?: () => void }) => {
     },
   });
 
-  useEffect(() => {
-    const conversationId = localStorage.getItem(
-      "policy-bandhu-conversation-id"
-    );
-    if (conversationId) {
-      getPrevChat.mutate(conversationId);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const conversationId = localStorage.getItem(
+  //     "policy-bandhu-conversation-id"
+  //   );
+  //   if (conversationId) {
+  //     getPrevChat.mutate(conversationId);
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (windowRef.current) {
@@ -145,10 +151,14 @@ const PolicyClarifier = ({ onClose }: { onClose ?: () => void }) => {
     setCurrentScreen("askQuestion");
   };
 
-  const handleQuestionSubmit = () => {
-    if (!userQuestion.trim()) return;
-
-    addMessage("user", userQuestion);
+  const handleQuestionSubmit = (question: string = '') => {
+    if (!userQuestion.trim() && !question.trim()) return;
+    if (question.trim().length === 0) {
+      addMessage("user", userQuestion);
+    } else {
+      addMessage("user", question);
+    }
+    setSuggestions([])
     let convId = user?.id;
     let uuid: string;
     if (!convId) {
@@ -157,18 +167,23 @@ const PolicyClarifier = ({ onClose }: { onClose ?: () => void }) => {
     if (!convId) {
       uuid = uuidv4();
       localStorage.setItem("policy-bandhu-conversation-id", uuid);
+      convId = uuid
     }
     postChat.mutate({
-      text: [...messages, { type: "user", content: userQuestion }].map(
-        (message) => ({
-          role: message.type === "bot" ? "assistant" : "user",
-          content: message.content,
-        })
-      ),
+      text: question.trim().length > 0 ? question : userQuestion.trim(),
       conversationId: convId,
     });
     setUserQuestion("");
   };
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleQuestionSubmit();
+    }
+  };
+  
+  const onSuggestionClick = (question: string) => {
+    handleQuestionSubmit(question)  
+  }
 
   const handleAskAn = () => {
     setUserQuestion("");
@@ -216,23 +231,16 @@ const PolicyClarifier = ({ onClose }: { onClose ?: () => void }) => {
               value={userQuestion}
               onChange={(e) => setUserQuestion(e.target.value)}
               placeholder="Type your question here..."
-              className="min-h-[100px] md:min-h-[120px] resize-none input-field text-base"
+              className="h-4"
             />
             <div className="flex flex-col sm:flex-row gap-2">
               <Button
-                onClick={handleQuestionSubmit}
+                onClick={()=>handleQuestionSubmit()}
                 disabled={!userQuestion.trim()}
                 className="flex-1 bg-[#213e72] text-white hover-scale min-h-[44px] order-2 sm:order-1 hover:bg-[#395486]"
+                onKeyDown={handleKeyDown}
               >
                 Ask Question
-              </Button>
-              <Button
-                variant="outline"
-                onClick={handleChangePolicy}
-                className="bg-transparent border-2 border-[#213e72] hover-scale min-h-[44px] order-1 sm:order-2 sm:w-auto"
-              >
-                <ArrowLeft className="h-4 w-4 sm:mr-0 mr-2" />
-                <span className="sm:hidden">Back to Policy Selection</span>
               </Button>
             </div>
           </div>
@@ -299,15 +307,12 @@ const PolicyClarifier = ({ onClose }: { onClose ?: () => void }) => {
           <div className="flex items-center gap-2">
             <img src="/logo.png" alt="Logo" className="w-36 h-12 object-contain" />
           </div>
-          {onClose && <Button
+          {onClose && <span
               onClick={onClose}
-              variant="outline"
-              size="icon"
-              className="bg-white hover:bg-lime-50"
-              aria-label="Close chat"
+              className="mr-5 cursor-pointer"
             >
               <X className="h-4 w-4 text-black" />
-          </Button>}
+          </span>}
         </div>
       </div>
       <CardContent className="p-0">
@@ -345,7 +350,19 @@ const PolicyClarifier = ({ onClose }: { onClose ?: () => void }) => {
             </>
           )}
         </div>
-
+        <div className="flex flex-row gap-2 py-5 overflow-x-auto whitespace-nowrap mx-5">
+          {
+            suggestions.map((item, index) => (
+              <div
+                key={index}
+                className="text-blue-200 cursor-pointer px-2 py-1 border border-blue-200 flex-shrink-0"
+                onClick={() => onSuggestionClick(item)}
+              >
+                {item}
+              </div>
+            ))
+          }
+        </div>
         {/* Current Screen Interface */}
         <div className="p-3 md:p-4">{renderCurrentScreen()}</div>
       </CardContent>
