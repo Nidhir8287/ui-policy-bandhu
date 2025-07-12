@@ -22,6 +22,10 @@ import HowItWorks from "./HowItWorks";
 import PainPoints from "./PainPoints";
 import { Link } from "react-router-dom";
 import ChatIcon from "@/icons/ChatIcon";
+import HeroSection from "@/components/HeroSection";
+import WhyPolicyBandhu from "@/components/WhyPolicyBandhu";
+import PolicyBandhuFlow from "@/components/PolicyBandhuFlow";
+import RelatableComp from "@/components/relatableComp";
 
 const Landing = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -124,101 +128,25 @@ const Landing = () => {
       (prev) => (prev - 1 + testimonials.length) % testimonials.length
     );
   };
+  
+  const openChat = () => {
+    setIsChatOpen(true)
+  }
 
   return (
     <div className="min-h-screen bg-background">
       <Header openChat={() => setIsChatOpen(true)} />
 
-      {/* Hero Section */}
-      <section className="section-padding px-4 bg-[#C8D2DE]">
-        {/* <div className="container-custom">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 text-white leading-tight">
-            PolicyBadhu: Your Insurance, Simplified
-          </h1>
-          <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed">
-            Get clear, to-the-point answers about your policy—no jargon, no bias, no advice.
-          </p> */}
-        {/* <Button 
-            size="lg" 
-            onClick={() => setIsChatOpen(true)}
-            className="gradient-button text-lg px-6 md:px-8 py-3 md:py-4 h-auto text-white hover-scale min-h-[44px] w-full sm:w-auto"
-          >
-            Chat Now
-          </Button> */}
-        {/* </div> */}
-        <div className="flex justify-between mx-5">
-          <div className="flex flex-col gap-10">
-            <div className="text-center flex flex-col gap-5 mx-5">
-              <div className="text-black font-bold text-5xl">
-                Because Trust Starts with Transparency
-              </div>
-              <div className="text-black">
-                Enter your policy name, and our AI delivers a straightforward,
-                jargon-free summary of your coverage, highlighting key benefits,
-                tell what’s truly covered, what’s quietly excluded, and what you
-                should care about.
-              </div>
-            </div>
-            <div className="flex items-center justify-center flex-col gap-8">
-              <div className="text-center text-black font-semibold">
-                Ask Bandhu, Let the truth behind your policy—unlocked
-              </div>
-              <div className="bg-[#213559] px-3 py-2 rounded-md">
-                <button onClick={() => setIsChatOpen(true)}>CHAT NOW</button>
-              </div>
-            </div>
-          </div>
-          <div className="border border-blue-50 rounded-lg">
-            <img
-              src="/mobile-photo.png"
-              className="w-full h-full object-cover"
-              alt="Mobile"
-            />
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
-      {/* About the Product */}
-      <section className="section-padding px-4">
-        <div className="container-custom">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-high">
-            Why PolicyBadhu?
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-16">
-            {usps.map((usp, index) => (
-              <Card
-                key={index}
-                className="p-4 md:p-6 hover:shadow-lg transition-all hover-scale bg-card border-border/50 card-shadow animate-fade-in"
-              >
-                <CardContent className="p-0">
-                  <div className="flex items-start space-x-3 md:space-x-4">
-                    <div className="text-primary mt-1 flex-shrink-0">
-                      {usp.icon}
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-2 text-high text-base md:text-lg">
-                        {usp.title}
-                      </h3>
-                      <p className="text-sm text-mid leading-relaxed">
-                        {usp.description}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {/* Stats Section */}
-        </div>
-      </section>
+      <WhyPolicyBandhu />
 
       {/* how it works */}
-      <HowItWorks onChatClick={() => setIsChatOpen(true)} />
+      {/* <HowItWorks onChatClick={() => setIsChatOpen(true)} /> */}
+      <PolicyBandhuFlow openChat={openChat} />
 
       {/* Pain points */}
-      <PainPoints />
+      <RelatableComp openChat={openChat} />
 
       {/* Founders */}
       <section className="section-padding px-4 bg-muted/30">
@@ -331,7 +259,7 @@ const Landing = () => {
               </CardContent>
             </Card>
 
-            <Button
+            {/* <Button
               variant="outline"
               size="icon"
               className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 btn-secondary hover-scale min-h-[44px] min-w-[44px]"
@@ -349,7 +277,7 @@ const Landing = () => {
               aria-label="Next testimonial"
             >
               <ChevronRight className="h-4 w-4" />
-            </Button>
+            </Button> */}
           </div>
         </div>
       </section>
