@@ -25,7 +25,7 @@ import ChatIcon from "@/icons/ChatIcon";
 import HeroSection from "@/components/HeroSection";
 import WhyPolicyBandhu from "@/components/WhyPolicyBandhu";
 import PolicyBandhuFlow from "@/components/PolicyBandhuFlow";
-import RelatableComp from "@/components/relatableComp";
+import RelatableComp from "@/components/RelatableComp";
 
 const Landing = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);

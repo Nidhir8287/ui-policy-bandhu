@@ -1,4 +1,3 @@
-import React from 'react'
 import Button from './ui/buttonV2'
 
 const RelatableComp = ({ openChat }) => {
