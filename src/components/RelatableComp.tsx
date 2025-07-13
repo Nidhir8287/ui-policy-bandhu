@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from './ui/buttonV2'
 
-function RelatableComp({ openChat }) {
+const RelatableComp = ({ openChat }) => {
   return (
     <div className='bg-white'>
         <div className='flex items-center justify-center py-20 gap-60'>
