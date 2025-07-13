@@ -6,37 +6,37 @@ const steps = [
     {
       step: "Step 1",
       title: "Policy Confusion",
-      src: "public/policyConfusion.png",
+      src: "/policyConfusion.png",
       description: "Initial state of confusion about insurance policies",
     },
     {
       step: "Step 2",
       title: "Select Policy",
-      src: 'public/selectPolicy.png',
+      src: '/selectPolicy.png',
       description: "Choosing a specific policy for detailed information",
     },
     {
       step: "Step 3",
       title: "Open Chatbot",
-      src: 'public/openChatbot.png',
+      src: '/openChatbot.png',
       description: "Engaging with an AI chatbot for assistance",
     },
     {
       step: "Step 4",
       title: "Ask Questions",
-      src: 'public/askQuestions.png',
+      src: '/askQuestions.png',
       description: "Interacting with the chatbot for tailored answers",
     },
     {
       step: "Step 5",
       title: "Breakdown Received",
-      src: 'public/breakdown.png',
+      src: '/breakdown.png',
       description: "Receiving a clear summary of policy coverage",
     },
     {
       step: "Step 6",
       title: "Unlock Unlimited Support",
-      src: 'public/unlockSupport.png',
+      src: '/unlockSupport.png',
       description: "Unlocking unlimited support through a premium subscription.",
     },
   ];

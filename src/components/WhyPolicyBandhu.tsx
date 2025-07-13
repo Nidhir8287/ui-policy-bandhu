@@ -4,22 +4,22 @@ function WhyPolicyBandhu() {
     
     const images = [
         {
-            src: 'public/informationNotAdvice.png',
+            src: '/informationNotAdvice.png',
             header: 'Information, not advice',
             text: 'Zero bias, pure facts'
         },
         {
-            src: 'public/toThePoint.png',
+            src: '/toThePoint.png',
             header: 'To-the-point answers',
             text: 'Not fluff, just what you need'
         },
         {
-            src: 'public/clarifier.png',
+            src: '/clarifier.png',
             header: 'Clarifies polciy-never recommends',
             text: 'We explain, you decide'
         },
         {
-            src: 'public/noSales.png',
+            src: '/noSales.png',
             text: 'No "buy now", affiliate links or recommendation',
             header: 'No Sales pitches'
         }
