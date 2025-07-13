@@ -64,9 +64,14 @@ const PolicyClarifier = ({ onClose }: { onClose ?: () => void }) => {
     onSuccess: (data) => {
       setMessages((prev) => [
         ...prev,
-        { type: "bot", content: data.data.bot_reply.content.replace(/#\^\^#.*?#\^#\^#/gs, '')    // remove suggestions
-          .replace(/#\^\^\^#.*?#\^\^\^#/gs, '') // remove links
-          .trim() },
+        {
+          type: "bot",
+          content: data.data.bot_reply.content
+            .replace(/#\^\^#.*?#\^#\^#/gs, '')    // remove suggestions
+            .replace(/#\^\^\^#.*?#\^\^\^#/gs, '') // remove links
+            .replaceAll('**', '')                // remove all ** markers
+            .trim()
+        },
       ]);
       const suggestions = [...data.data.bot_reply.content.matchAll(/#\^\^#(.*?)#\^#\^#/gs)].map(m => m[1].trim())
       setSuggestions(suggestions)
