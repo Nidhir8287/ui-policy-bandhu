@@ -17,7 +17,7 @@ function Payment() {
   } = useQuery({
     queryKey: ['userProfile'],
     queryFn: getUserProfile,
-    enabled: !!user,
+    enabled: !!user && !!localStorage.getItem('authToken_policy'),
     retry: 1,
   });
 

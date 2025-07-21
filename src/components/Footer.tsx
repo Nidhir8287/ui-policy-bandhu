@@ -6,7 +6,7 @@ function Footer() {
     <footer className="bg-[#7979DC] pt-20 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-6 md:mb-8 px-20">
         <div className="text-center md:text-center">
-            <img src="/white-logo.png" className='h-10 w-32' />
+            <img src="/white-logo.png" className='h-10 w-44' />
         </div>
 
         <div className="text-center md:text-left">

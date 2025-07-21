@@ -38,24 +38,26 @@ function FAQSection() {
     }
   return (
     <div className='p-20 flex flex-col gap-5 bg-white'>
-        <div className='text-center text-4xl text-black font-bold mb-10'>Frequently Asked Questions</div>
-        {
-            accordions.map(({ question, ans }, index) => (
-                <div className='border-b pb-3 flex flex-col gap-2' onClick={()=>onAccordClick(index)}>
-                    <div className='flex justify-between'>
-                        <span className='text-black font-semibold'>{question}</span>
-                        {open !== index ? <ChevronDown color='black' /> : <ChevronUp color='black' />}
+        <div className='text-4xl text-black font-bold mb-10 text-center'>Frequently Asked Questions</div>
+        <div className='flex flex-col gap-5 px-36'>
+            {
+                accordions.map(({ question, ans }, index) => (
+                    <div className='border-b flex pb-3 flex-col gap-2 w-full' onClick={()=>onAccordClick(index)}>
+                        <div className='flex justify-between'>
+                            <span className='text-black font-semibold'>{question}</span>
+                            {open !== index ? <ChevronDown color='black' /> : <ChevronUp color='black' />}
+                        </div>
+                        {
+                            open === index && (
+                                <div className='text-black'>
+                                    {ans}
+                                </div>
+                            )
+                        }
                     </div>
-                    {
-                        open === index && (
-                            <div className='text-black'>
-                                {ans}
-                            </div>
-                        )
-                    }
-                </div>
-            ))
-        }
+                ))
+            }
+        </div>
     </div>
   )
 }
