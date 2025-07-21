@@ -189,10 +189,10 @@ const Chat = () => {
   };
 
   const handleQuestionSubmit = (question: string = "") => {
-    // if (requiredLength === 0 && !is_subscribed) {
-    //   setShowModal(true);
-    //   return;
-    // }
+    if (requiredLength === 0 && !is_subscribed) {
+      setShowModal(true);
+      return;
+    }
     if (!userQuestion.trim() && !question.trim()) return;
     if (question.trim().length === 0) {
       addMessage("user", userQuestion);
