@@ -3,7 +3,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const Header = ({ openChat }: { openChat?: () => void }) => {
+const Header = () => {
   const { user, signInWithGoogle, signOut, loading } = useAuth();
   const { pathname } = useLocation();
   const navigate = useNavigate();

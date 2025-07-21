@@ -43,7 +43,7 @@ const steps = [
   ];
   
 
-export default function PolicyBandhuFlow({ openChat }) {
+export default function PolicyBandhuFlow() {
   const navigate = useNavigate()
     return (
       <div className="bg-[#F3F3FF]">

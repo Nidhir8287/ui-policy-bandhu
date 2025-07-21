@@ -108,6 +108,7 @@ const Chat = () => {
 
   useEffect(() => {
     if (user && authToken) {
+      // @ts-ignore
       getPrevChat.mutate();
     }
   }, [user, authToken]);

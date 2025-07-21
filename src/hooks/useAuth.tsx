@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
-import { createUser } from '../../api/createUser'
+import { createUser } from '../../api/createUser';
 
 interface AuthContextType {
   user: User | null;
@@ -25,61 +25,92 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
-
-  // Flag to avoid calling API multiple times
   const [hasSentUserData, setHasSentUserData] = useState(false);
 
-  useEffect(() => {
-    // Auth state change listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        setLoading(false);
-      }
-    );
+  // 👇 Centralized handler for invalid/expired token
+  const handleInvalidToken = async () => {
+    console.warn('Invalid or expired session. Logging out...');
+    await supabase.auth.signOut();
 
-    // Initial session fetch
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    // Clear all Supabase and custom session tokens
+    Object.keys(localStorage).forEach((key) => {
+      if (key.startsWith('sb-') || key === 'authToken_policy') {
+        localStorage.removeItem(key);
+      }
+    });
+
+    setUser(null);
+    setSession(null);
+    setHasSentUserData(false);
+
+    window.location.href = '/login'; // Or use router.push if using React Router or Next.js
+  };
+
+  // ✅ Auth state listener
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
     });
 
+    // ✅ Check session on initial app load
+    supabase.auth.getSession().then(({ data, error }) => {
+      if (error || !data.session) {
+        handleInvalidToken();
+      } else {
+        setSession(data.session);
+        setUser(data.session.user);
+        setLoading(false);
+      }
+    });
+
     return () => subscription.unsubscribe();
   }, []);
 
-  // 🔁 Call API once user is logged in
+  // ✅ Push user data to API once authenticated
   useEffect(() => {
     const sendUserDataToAPI = async () => {
       if (user && !hasSentUserData) {
         try {
-          await createUser(user?.user_metadata)
+          await createUser(user.user_metadata);
           setHasSentUserData(true);
-          localStorage.setItem('authToken_policy', session?.access_token)
-        } catch (error) {
+          localStorage.setItem('authToken_policy', session?.access_token || '');
+        } catch (error: any) {
           console.error('Failed to sync user:', error);
+          if (error?.message?.includes('JWT') || error?.message?.includes('Invalid')) {
+            handleInvalidToken();
+          }
         }
       }
     };
 
     sendUserDataToAPI();
-  }, [user, hasSentUserData]);
+  }, [user, hasSentUserData, session]);
 
   const signInWithGoogle = async () => {
     const redirectUrl = `${window.location}`;
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: {
-        redirectTo: redirectUrl,
-      },
+      options: { redirectTo: redirectUrl },
     });
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
-    setHasSentUserData(false); // reset flag on signout
-    localStorage.removeItem('authToken_policy')
+    try {
+      await supabase.auth.signOut();
+    } catch (err) {
+      console.error('Error signing out:', err);
+    } finally {
+      Object.keys(localStorage).forEach((key) => {
+        if (key.startsWith('sb-') || key === 'authToken_policy') {
+          localStorage.removeItem(key);
+        }
+      });
+      setHasSentUserData(false);
+      setUser(null);
+      setSession(null);
+    }
   };
 
   const value = {
