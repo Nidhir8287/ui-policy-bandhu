@@ -10,13 +10,7 @@ export const postFormData = async (data: any) => {
         Authorization: `Bearer ${authToken}`,
         'Content-Type': 'multipart/form-data',  // optional if you're sending JSON (default for axios)
     };
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('phone', phone);
-    formData.append('message', message);
-    formData.append('screenshot', file);
-    const res = await axios.post(`${API_BASE_PATH}/api/payment/create-order/`, formData, { headers });
+    const res = await axios.post(`${API_BASE_PATH}/api/payment/create-order/`, data, { headers });
     return res;
   } catch (error) {
     throw error;
