@@ -62,24 +62,27 @@ const Chat = () => {
   function formatBotMessage(content: string): string {
     if (!content) return "";
   
-    // Step 1: Clean formatting and custom markdown
     let formatted = content
       .replace(/#\^\^#.*?#\^#\^#/gs, "") // remove internal markers
       .replace(/#\^\^\^#.*?#\^\^\^#/gs, "")
       .replace(/â¢|â__¢|â„¢/g, "™")
       .replace(/\\n/g, "\n")
       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>');
+      // Remove empty markdown links like []() or () 
+      .replace(/\[\s*\]\(\s*\)/g, "")
+      .replace(/\(\s*\)/g, "")
+      // Convert valid [label](url) links
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>')
+      // Convert custom #^# links into anchor tags
+      .replace(/#\^#(https?:\/\/[^\s#]+)#\^#/g, `<a href="$1" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>`);
   
-    // Fix custom source URL marker: "#^#https://example.com#^#" => clickable link
-    formatted = formatted.replace(/#\^#(https?:\/\/[^\s#]+)#\^#/g, `<a href="$1" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>`);
+    // Remove standalone or empty (#^#) tags
+    formatted = formatted.replace(/\(#\^#\)/g, "");
   
-    // Step 2: Separate intro paragraph and list
     const [introPart, ...restParts] = formatted.split(/\n(?=- )/);
   
     let htmlOutput = `<p>${introPart.trim().replace(/\n/g, "<br/>")}</p>`;
   
-    // Step 3: Format bullet points
     if (restParts.length) {
       const listItems = restParts
         .map(part =>
@@ -88,7 +91,7 @@ const Chat = () => {
             .replace(/^- /, "")
             .trim()
         )
-        .map(item => `<li>${item}</li>`)
+        .map(item => item ? `<li>${item}</li>` : "")
         .join("");
   
       htmlOutput += `<ul class="list-disc list-inside space-y-1 mt-2">${listItems}</ul>`;
@@ -96,6 +99,7 @@ const Chat = () => {
   
     return htmlOutput.trim();
   }
+  
 
   const queryClient = useQueryClient();
 
@@ -103,7 +107,10 @@ const Chat = () => {
     mutationFn: postMessage,
     onSuccess: (data) => {
       const raw = data.data.bot_reply.content;
-  
+      const coversationId = data.data.chat_id
+      if (coversationId) {
+        localStorage.setItem('policy_bandhu_chat_id', coversationId)
+      }
       // Extract suggestions
       const suggestions = [...raw.matchAll(/#\^\^#(.*?)#\^#\^#/gs)].map((m) =>
         m[1].trim()
@@ -182,10 +189,10 @@ const Chat = () => {
   };
 
   const handleQuestionSubmit = (question: string = "") => {
-    if (requiredLength === 0 && !is_subscribed) {
-      setShowModal(true);
-      return;
-    }
+    // if (requiredLength === 0 && !is_subscribed) {
+    //   setShowModal(true);
+    //   return;
+    // }
     if (!userQuestion.trim() && !question.trim()) return;
     if (question.trim().length === 0) {
       addMessage("user", userQuestion);

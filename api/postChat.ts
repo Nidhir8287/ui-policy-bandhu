@@ -5,6 +5,7 @@ export const postMessage = async (args) => {
   try {
     const payload = {
       content: args.text,
+      chat_id: localStorage.getItem('policy_bandhu_chat_id')
     };
     const authToken = localStorage.getItem('authToken_policy')
     const headers = {
