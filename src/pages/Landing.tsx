@@ -142,7 +142,7 @@ const Landing = () => {
       <FAQSection />
 
       {/* Customer Testimonials */}
-      {/* <Testimony /> */}
+      <Testimony />
 
       {/* Footer */}
       <Footer />
