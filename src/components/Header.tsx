@@ -65,7 +65,7 @@ const Header = () => {
 
   return (
     <header
-      className={`bg-[#F3F3FF] sticky top-0 z-40 flex items-center border-b-4 border-white h-20 border-border/50 transition-transform duration-300 ${
+      className={`bg-[#F3F3FF] fixed w-full top-0 z-40 flex items-center border-b-4 border-white h-20 border-border/50 transition-transform duration-300 ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >

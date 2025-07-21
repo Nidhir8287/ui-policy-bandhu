@@ -277,7 +277,7 @@ const Chat = () => {
 
           {/* Chat Body */}
           <div
-            className="flex-1 overflow-y-auto px-10 py-6 flex flex-col-reverse gap-4"
+            className="flex-1 overflow-y-auto px-10 py-6 flex flex-col-reverse gap-4 mt-36"
             ref={windowRef}
           >
             {thinking && (
