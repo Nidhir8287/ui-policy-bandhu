@@ -2,9 +2,22 @@ import Button from "@/components/ui/buttonV2";
 import { useAuth } from "@/hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getUserProfile } from "../../api/userProfile";
 
 const Header = () => {
   const { user, signInWithGoogle, signOut, loading } = useAuth();
+  const {
+    data: userProfile,
+    isLoading: profileLoading,
+    error: profileError,
+  } = useQuery({
+    queryKey: ["userProfile"],
+    queryFn: getUserProfile,
+    enabled: !!user && !!localStorage.getItem("authToken_policy"),
+    retry: 1,
+  });
+  const { is_subscribed } = userProfile
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(true);
@@ -73,14 +86,14 @@ const Header = () => {
             Home
           </span>
 
-          <span
+          {!is_subscribed && <span
             className={`text-[#213559] font-medium cursor-pointer ${
               pathname === "/payment" ? "font-bold text-[#6E72FF]" : ""
             }`}
             onClick={onPaymentClick}
           >
             Payment
-          </span>
+          </span>}
 
           <span
             className={`text-[#213559] font-medium cursor-pointer ${
