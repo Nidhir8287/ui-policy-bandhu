@@ -65,7 +65,6 @@ const Chat = () => {
     let formatted = content
       .replace(/#\^\^#.*?#\^#\^#/gs, "") // remove internal markers
       .replace(/#\^\^\^#.*?#\^\^\^#/gs, "")
-      .replace(/â¢|â__¢|â„¢/g, "™")
       .replace(/\\n/g, "\n")
       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
       // Remove empty markdown links like []() or () 
@@ -75,6 +74,16 @@ const Chat = () => {
       .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>')
       // Convert custom #^# links into anchor tags
       .replace(/#\^#(https?:\/\/[^\s#]+)#\^#/g, `<a href="$1" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>`);
+  
+    // 🛠️ Fix mojibake / character encoding issues
+    formatted = formatted
+      .replace(/â¹/g, '₹')
+      .replace(/â€“|â€”/g, '–')
+      .replace(/â€œ|â€|â€"|"|â€˜|â€™|â|â|â|â/g, '"')
+      .replace(/â€¦|â¦/g, '…')
+      .replace(/â€¢|â¢/g, '•')
+      .replace(/â€”|â”/g, '—')
+      .replace(/â€“|â/g, '-');
   
     // Remove standalone or empty (#^#) tags
     formatted = formatted.replace(/\(#\^#\)/g, "");
