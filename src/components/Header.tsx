@@ -49,8 +49,6 @@ const Header = () => {
     signOut()
     navigate('/')
   }
-  
-  console.log("user?.user_metadata?.picture", user?.user_metadata?.picture, isCustomGoogleAvatar(user?.user_metadata?.picture))
 
   return (
     <header

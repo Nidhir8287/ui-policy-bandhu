@@ -38,12 +38,12 @@ const Chat = () => {
   } = useQuery({
     queryKey: ["userProfile"],
     queryFn: getUserProfile,
-    enabled: !!user && !!localStorage.getItem('authToken_policy'),
+    enabled: !!user && !!localStorage.getItem("authToken_policy"),
     retry: 1,
   });
 
   const navigate = useNavigate();
-  const authToken = localStorage.getItem('authToken_policy')
+  const authToken = localStorage.getItem("authToken_policy");
 
   const { is_subscribed } = userProfile || {};
 
@@ -57,27 +57,69 @@ const Chat = () => {
       textarea.style.height = `${textarea.scrollHeight}px`;
     }
   };
+  
+  
+  function formatBotMessage(content: string): string {
+    if (!content) return "";
+  
+    // Step 1: Clean formatting and custom markdown
+    let formatted = content
+      .replace(/#\^\^#.*?#\^#\^#/gs, "") // remove internal markers
+      .replace(/#\^\^\^#.*?#\^\^\^#/gs, "")
+      .replace(/â¢|â__¢|â„¢/g, "™")
+      .replace(/\\n/g, "\n")
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>');
+  
+    // Fix custom source URL marker: "#^#https://example.com#^#" => clickable link
+    formatted = formatted.replace(/#\^#(https?:\/\/[^\s#]+)#\^#/g, `<a href="$1" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>`);
+  
+    // Step 2: Separate intro paragraph and list
+    const [introPart, ...restParts] = formatted.split(/\n(?=- )/);
+  
+    let htmlOutput = `<p>${introPart.trim().replace(/\n/g, "<br/>")}</p>`;
+  
+    // Step 3: Format bullet points
+    if (restParts.length) {
+      const listItems = restParts
+        .map(part =>
+          part
+            .trim()
+            .replace(/^- /, "")
+            .trim()
+        )
+        .map(item => `<li>${item}</li>`)
+        .join("");
+  
+      htmlOutput += `<ul class="list-disc list-inside space-y-1 mt-2">${listItems}</ul>`;
+    }
+  
+    return htmlOutput.trim();
+  }
 
   const queryClient = useQueryClient();
 
   const postChat = useMutation({
     mutationFn: postMessage,
     onSuccess: (data) => {
+      const raw = data.data.bot_reply.content;
+  
+      // Extract suggestions
+      const suggestions = [...raw.matchAll(/#\^\^#(.*?)#\^#\^#/gs)].map((m) =>
+        m[1].trim()
+      );
+  
+      const formatted = formatBotMessage(raw);
+  
       setMessages((prev) => [
         ...prev,
         {
           type: "bot",
-          content: data.data.bot_reply.content
-            .replace(/#\^\^#.*?#\^#\^#/gs, "") // remove suggestions
-            .replace(/#\^\^\^#.*?#\^\^\^#/gs, "") // remove links
-            .replaceAll("**", "") // remove all ** markers
-            .trim(),
+          content: formatted,
         },
       ]);
+  
       setThinking(false);
-      const suggestions = [
-        ...data.data.bot_reply.content.matchAll(/#\^\^#(.*?)#\^#\^#/gs),
-      ].map((m) => m[1].trim());
       setSuggestions(suggestions);
       queryClient.invalidateQueries({ queryKey: ["postMessage"] });
     },
@@ -88,23 +130,26 @@ const Chat = () => {
     onSuccess: (data) => {
       const earlierMessages = data?.data
         .reverse()
-        .map(({ content, author }) => ({
-          type: author === 1 ? "bot" : "user",
-          content: content
-            .replace(/#\^\^#.*?#\^#\^#/gs, "") // remove suggestions
-            .replace(/#\^\^\^#.*?#\^\^\^#/gs, "") // remove links
-            .replaceAll("**", "") // remove all ** markers
-            .trim(),
-        }));
+        .map(({ content, author }) => {
+          const formatted =
+            author === 1 ? formatBotMessage(content) : content;
+  
+          return {
+            type: author === 1 ? "bot" : "user",
+            content: formatted,
+          };
+        });
+  
       setMessages(earlierMessages);
     },
-    onError: (error) => {
+    onError: () => {
       toast({
         title: "Error",
         description: "Something went wrong!",
       });
     },
   });
+  
 
   useEffect(() => {
     if (user && authToken) {
@@ -208,7 +253,9 @@ const Chat = () => {
               </div>
               {!is_subscribed ? (
                 <div className="text-black">queries left: {requiredLength}</div>
-              ): <Crown fill="#FFD700" color="#FFD700" />}
+              ) : (
+                <Crown fill="#FFD700" color="#FFD700" />
+              )}
             </div>
           </div>
 
@@ -233,13 +280,20 @@ const Chat = () => {
                 }`}
               >
                 <div
-                  className={`max-w-[70%] text-sm p-4 rounded-xl ${
+                  className={`max-w-[70%] text-sm p-4 rounded-xl prose prose-sm ${
                     msg.type === "user"
                       ? "bg-[#FFD6AC] text-black rounded-tr-none"
                       : "bg-[#BEBEFF] text-black rounded-tl-none"
                   }`}
                 >
-                  {msg.content}
+                  {msg.type === "bot" ? (
+                    <div
+                      className="prose prose-sm"
+                      dangerouslySetInnerHTML={{ __html: msg.content }}
+                    />
+                  ) : (
+                    msg.content
+                  )}
                 </div>
               </div>
             ))}
