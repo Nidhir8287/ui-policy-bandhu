@@ -189,7 +189,7 @@ const Chat = () => {
   };
 
   const handleQuestionSubmit = (question: string = "") => {
-    if (requiredLength === 0 && !is_subscribed) {
+    if (requiredLength <= 0 && !is_subscribed) {
       setShowModal(true);
       return;
     }
