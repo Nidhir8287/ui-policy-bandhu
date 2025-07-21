@@ -17,7 +17,7 @@ const Header = () => {
     enabled: !!user && !!localStorage.getItem("authToken_policy"),
     retry: 1,
   });
-  const { is_subscribed } = userProfile
+  const { is_subscribed } = userProfile || {}
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(true);
