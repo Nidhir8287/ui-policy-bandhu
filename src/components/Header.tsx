@@ -56,7 +56,7 @@ const Header = () => {
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <div className="mx-6 md:mx-28 flex justify-between w-full items-center relative">
+      <div className="px-10 flex justify-between w-full items-center relative">
         {/* Logo */}
         <div className="text-black">
           <img src="/logo.png" height={49} width={127} alt="Logo" />
