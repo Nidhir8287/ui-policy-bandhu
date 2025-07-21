@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setSession(null);
     setHasSentUserData(false);
 
-    window.location.href = '/login'; // Or use router.push if using React Router or Next.js
+    window.location.href = '/'; // Or use router.push if using React Router or Next.js
   };
 
   // ✅ Auth state listener
