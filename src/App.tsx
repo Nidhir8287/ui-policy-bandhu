@@ -13,6 +13,8 @@ import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import RefundPolicy from "./pages/RefundPolicy";
 import Disclaimer from "./pages/Disclaimer";
+import ContactUs from "./pages/ContactUs";
+import Payment from "./pages/Payment";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +28,8 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/payment" element={<Payment />} />
             <Route path="/history" element={<History />} />
             <Route path="/terms-and-services" element={<TermsOfService />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />

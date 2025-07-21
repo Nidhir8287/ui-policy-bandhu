@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from './ui/buttonV2';
+import { useNavigate } from 'react-router-dom';
 
 
 const steps = [
@@ -43,6 +44,7 @@ const steps = [
   
 
 export default function PolicyBandhuFlow({ openChat }) {
+  const navigate = useNavigate()
     return (
       <div className="bg-[#F3F3FF]">
         <div className='flex flex-col py-20 mx-28 text-center gap-5'>
@@ -80,7 +82,7 @@ export default function PolicyBandhuFlow({ openChat }) {
             </div>
         </div>
         <div className='mt-10'>
-            <Button text="Chat Now" className='text-white bg-[#7979DC] rounded-full px-10 py-2 text-center' onClick={()=>openChat()} />
+            <Button text="Chat Now" className='text-white bg-[#7979DC] rounded-full px-10 py-2 text-center' onClick={()=>navigate('/chat')} />
         </div>
         </div>
       </div>

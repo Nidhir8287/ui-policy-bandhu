@@ -1,32 +1,31 @@
 import Button from "@/components/ui/buttonV2";
 import { useAuth } from "@/hooks/useAuth";
-import { Link, useLocation } from "react-router-dom";
-import { User, LogOut, History, MessageCircle, Home } from "lucide-react";
-import MobileNav from "./MobileNav";
-import { useState, useEffect } from "react";
-import ChatIcon from "@/icons/ChatIcon";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Header = ({ openChat }: { openChat?: () => void }) => {
   const { user, signInWithGoogle, signOut, loading } = useAuth();
-  const location = useLocation();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [showDropdown, setShowDropdown] = useState(false);
+  
+  const isCustomGoogleAvatar = (url) => {
+    return (
+      typeof url === "string" &&
+      url.includes("lh3.googleusercontent.com/a/") &&
+      url.split("/a/")[1]?.length > 30 // Custom image hashes are usually long
+    );
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Only apply auto-hide on mobile (≤768px)
       if (window.innerWidth <= 768) {
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-          // Scrolling down and past 100px
-          setIsVisible(false);
-        } else {
-          // Scrolling up
-          setIsVisible(true);
-        }
+        setIsVisible(currentScrollY <= lastScrollY || currentScrollY < 100);
       } else {
-        // Always visible on desktop
         setIsVisible(true);
       }
 
@@ -37,26 +36,102 @@ const Header = ({ openChat }: { openChat?: () => void }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
+  const goToLink = (path: string) => navigate(`/${path}`);
+
+  const onPaymentClick = async () => {
+    navigate("/payment");
+    if (!user) {
+      await signInWithGoogle()
+    }
+  };
+  
+  const onLogout = () => {
+    signOut()
+    navigate('/')
+  }
+  
+  console.log("user?.user_metadata?.picture", user?.user_metadata?.picture, isCustomGoogleAvatar(user?.user_metadata?.picture))
+
   return (
     <header
       className={`bg-[#F3F3FF] sticky top-0 z-40 flex items-center border-b-4 border-white h-20 border-border/50 transition-transform duration-300 ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <div className="mx-28 flex justify-between w-full items-center">
+      <div className="mx-6 md:mx-28 flex justify-between w-full items-center relative">
+        {/* Logo */}
         <div className="text-black">
-          <img src="/logo.png" height={49} width={127} />
+          <img src="/logo.png" height={49} width={127} alt="Logo" />
         </div>
-        <div className="flex items-center gap-10">
-          <span className="text-[#213559] font-medium">HOME</span>
+
+        {/* Nav Items */}
+        <div className="flex items-center gap-6 md:gap-10 text-sm md:text-base">
+          <span
+            className={`text-[#213559] font-medium cursor-pointer ${
+              pathname === "/" ? "font-bold text-[#6E72FF]" : ""
+            }`}
+            onClick={() => goToLink("")}
+          >
+            Home
+          </span>
+
+          <span
+            className={`text-[#213559] font-medium cursor-pointer ${
+              pathname === "/payment" ? "font-bold text-[#6E72FF]" : ""
+            }`}
+            onClick={onPaymentClick}
+          >
+            Payment
+          </span>
+
+          <span
+            className={`text-[#213559] font-medium cursor-pointer ${
+              pathname === "/chat" ? "font-bold text-[#6E72FF]" : ""
+            }`}
+            onClick={() => goToLink("chat")}
+          >
+            Chat
+          </span>
+
+          <span
+            className={`text-[#213559] font-medium cursor-pointer ${
+              pathname === "/contact-us" ? "font-bold text-[#6E72FF]" : ""
+            }`}
+            onClick={() => goToLink("contact-us")}
+          >
+            Contact Us
+          </span>
+
+          {/* Auth buttons */}
           {!user || Object.keys(user).length === 0 ? (
             <Button
               text="LOGIN"
               onClick={signInWithGoogle}
-              className="bg-[#8F8FEF] text-whiterounded-full py-1 text-sm px-5 rounded-full text-white"
-             />
+              className="bg-[#FFA766] text-white rounded-full py-1 px-5 text-sm"
+            />
           ) : (
-            <Button text="LOGOUT" onClick={signOut} className="bg-[#8F8FEF] text-whiterounded-full py-1 text-sm px-5 rounded-full text-white" />
+            <div
+              className="relative"
+              tabIndex={0}
+              onBlur={() => setTimeout(() => setShowDropdown(false), 100)} // small delay to allow click
+            >
+              <div
+                className="h-10 w-10 rounded-lg cursor-pointer"
+                onClick={() => setShowDropdown(!showDropdown)}
+              >
+                <img
+                  src={user?.user_metadata?.picture}
+                  alt="User"
+                  className="h-10 w-10 rounded-lg"
+                />
+              </div>
+
+              {showDropdown && (
+                <div className="absolute top-12 right-0 bg-white shadow-md rounded-md px-4 py-2 text-black text-sm cursor-pointer z-50" onClick={onLogout}>
+                  Logout
+                </div>
+              )}
+            </div>
           )}
         </div>
       </div>

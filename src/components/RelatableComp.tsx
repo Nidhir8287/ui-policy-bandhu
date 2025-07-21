@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom'
 import Button from './ui/buttonV2'
 
 const RelatableComp = ({ openChat }) => {
+  const navigate = useNavigate()
   return (
     <div className='bg-white'>
         <div className='flex items-center justify-center py-20 gap-60'>
@@ -9,7 +11,7 @@ const RelatableComp = ({ openChat }) => {
                 <span className='text-3xl text-black font-semibold'>Feels <span className='text-[#7979DC]'>Relatable?</span></span>
                 <span className='max-w-52 text-black'>23% health insurance policy buyers in india fell lost while buying health insurance</span>
                 <div className='mt-20'>
-                    <Button text="Chat Now" className='rounded-full py-2 px-9 bg-[#7979DC] text-white' onClick={openChat} />
+                    <Button text="Chat Now" className='rounded-full py-2 px-9 bg-[#7979DC] text-white' onClick={()=>navigate('/chat')} />
                 </div>
             </div>
         </div>
