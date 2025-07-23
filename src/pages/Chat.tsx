@@ -62,43 +62,42 @@ const Chat = () => {
   function formatBotMessage(content: string): string {
     if (!content) return "";
   
-    let formatted = content
-      .replace(/#\^\^#.*?#\^#\^#/gs, "") // remove internal markers
-      .replace(/#\^\^\^#.*?#\^\^\^#/gs, "")
-      .replace(/\\n/g, "\n")
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      // Remove empty markdown links like []() or () 
-      .replace(/\[\s*\]\(\s*\)/g, "")
-      .replace(/\(\s*\)/g, "")
-      // Convert valid [label](url) links
-      .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>')
-      // Convert custom #^# links into anchor tags
-      .replace(/#\^#(https?:\/\/[^\s#]+)#\^#/g, `<a href="$1" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>`);
+    // Step 1: Trim and remove trailing "true"/"false"
+    content = content.trim().replace(/\b(true|false)\s*$/i, "");
   
-    // 🛠️ Fix mojibake / character encoding issues
-    formatted = formatted
+    // Step 2: Replace broken character encodings
+    content = content
       .replace(/â¹/g, '₹')
-      .replace(/â€“|â€”/g, '–')
-      .replace(/â€œ|â€|â€"|"|â€˜|â€™|â|â|â|â/g, '"')
+      .replace(/â€“|â€”|â|â”/g, '–')
+      .replace(/â€œ|â€|â|â/g, '"')
+      .replace(/â€˜|â€™|â|â/g, "'")
       .replace(/â€¦|â¦/g, '…')
       .replace(/â€¢|â¢/g, '•')
-      .replace(/â€”|â”/g, '—')
-      .replace(/â€“|â/g, '-');
+      .replace(/Â°/g, '°')
+      .replace(/â/g, '') // extra unmatched 'â'
   
-    // Remove standalone or empty (#^#) tags
-    formatted = formatted.replace(/\(#\^#\)/g, "");
+    // Step 3: Format links and bold
+      .replace(/\\n/g, "\n")
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\[\s*\]\(\s*\)/g, "")
+      .replace(/\(\s*\)/g, "")
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>')
+      .replace(/#\^#(https?:\/\/[^\s#]+)#\^#/g, `<a href="$1" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>`)
+      .replace(/#\^\^#.*?#\^#\^#/gs, "") // remove internal markers
+      .replace(/#\^\^\^#.*?#\^\^\^#/gs, "");
   
-    const [introPart, ...restParts] = formatted.split(/\n(?=- )/);
+    // Remove standalone/empty tags
+    content = content.replace(/\(#\^#\)/g, "");
+  
+    // Step 4: Split into intro and bullets (preserve line breaks inside paragraph)
+    const [introPart, ...restParts] = content.split(/\n(?=- )/);
   
     let htmlOutput = `<p>${introPart.trim().replace(/\n/g, "<br/>")}</p>`;
   
     if (restParts.length) {
       const listItems = restParts
         .map(part =>
-          part
-            .trim()
-            .replace(/^- /, "")
-            .trim()
+          part.trim().replace(/^- /, "").trim()
         )
         .map(item => item ? `<li>${item}</li>` : "")
         .join("");
@@ -268,7 +267,7 @@ const Chat = () => {
                 </div>
               </div>
               {!is_subscribed ? (
-                <div className="text-black">queries left: {requiredLength}</div>
+                <div className="text-black">queries left: {Math.max(requiredLength, 0)}</div>
               ) : (
                 <Crown fill="#FFD700" color="#FFD700" />
               )}
