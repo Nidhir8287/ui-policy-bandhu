@@ -100,7 +100,7 @@ const ContactForm = ({ onSuccess }) => {
             name="message"
             value={formData.message}
             onChange={onInputChange}
-            rows={4}
+            rows={3}
             className="w-full p-2.5 rounded-xl bg-[#FFA766] placeholder:text-black resize-none"
           />
         </div>

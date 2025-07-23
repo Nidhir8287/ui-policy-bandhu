@@ -42,7 +42,7 @@ function Payment() {
       <Header />
 
       {!pending_subscription ? (
-        <div className="flex justify-center gap-28 px-11 py-12">
+        <div className="flex justify-center gap-28 px-11 pt-12 mt-16">
           <div>
             <div className="text-[#5757CA]">Payment</div>
             <div className="text-black mt-10">
