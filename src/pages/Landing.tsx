@@ -23,10 +23,10 @@ const Landing = () => {
       <PolicyBandhuFlow />
       {/* Pain points */}
       <RelatableComp />
-      <MeetTheFounders />
-      <FAQSection />
       {/* Customer Testimonials */}
       <Testimony />
+      <FAQSection />
+      <MeetTheFounders />
       {/* Footer */}
       <Footer />
     </div>

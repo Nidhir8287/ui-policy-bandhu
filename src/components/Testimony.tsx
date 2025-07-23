@@ -13,7 +13,7 @@ const ALL_PEOPLE = [
   },
   {
     name: 'Rashmi Das',
-    wrote: `I wish I had found PolicyBandhu earlier! It made navigating my health insurance so simple. No more confusion or uncertainty`,
+    wrote: `I’ve been confused for months about my health insurance. PolicyBandhu broke it down in such simple terms. Now I can make informed decisions!`,
     picture: 'https://media.licdn.com/dms/image/v2/D5603AQF3VqFZyz2s3Q/profile-displayphoto-shrink_400_400/B56Zc.Enp4HUAg-/0/1749093088712?e=1755734400&v=beta&t=MZ4jYCWOPNhUE33EnrRVeEWctU_57NcARkaI8No2Twk'
   },
   {
