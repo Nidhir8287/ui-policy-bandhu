@@ -13,10 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const Chat = () => {
   const { user, signInWithGoogle, loading } = useAuth();
-  const [currentScreen, setCurrentScreen] = useState("welcome");
-  const [policyName, setPolicyName] = useState("");
   const [userQuestion, setUserQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [thinking, setThinking] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -57,57 +54,59 @@ const Chat = () => {
       textarea.style.height = `${textarea.scrollHeight}px`;
     }
   };
-  
-  
+
   function formatBotMessage(content: string): string {
     if (!content) return "";
-  
+
     // Step 1: Trim and remove trailing "true"/"false"
     content = content.trim().replace(/\b(true|false)\s*$/i, "");
-  
+
     // Step 2: Replace broken character encodings
     content = content
-      .replace(/â¹/g, '₹')
-      .replace(/â€“|â€”|â|â”/g, '–')
+      .replace(/â¹/g, "₹")
+      .replace(/â€“|â€”|â|â”/g, "–")
       .replace(/â€œ|â€|â|â/g, '"')
       .replace(/â€˜|â€™|â|â/g, "'")
-      .replace(/â€¦|â¦/g, '…')
-      .replace(/â€¢|â¢/g, '•')
-      .replace(/Â°/g, '°')
-      .replace(/â/g, '') // extra unmatched 'â'
-  
-    // Step 3: Format links and bold
+      .replace(/â€¦|â¦/g, "…")
+      .replace(/â€¢|â¢/g, "•")
+      .replace(/Â°/g, "°")
+      .replace(/â/g, "") // extra unmatched 'â'
+
+      // Step 3: Format links and bold
       .replace(/\\n/g, "\n")
       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
       .replace(/\[\s*\]\(\s*\)/g, "")
       .replace(/\(\s*\)/g, "")
-      .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>')
-      .replace(/#\^#(https?:\/\/[^\s#]+)#\^#/g, `<a href="$1" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>`)
+      .replace(
+        /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
+        '<a href="$2" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>'
+      )
+      .replace(
+        /#\^#(https?:\/\/[^\s#]+)#\^#/g,
+        `<a href="$1" target="_blank" class="underline text-blue-600 hover:text-blue-800">$1</a>`
+      )
       .replace(/#\^\^#.*?#\^#\^#/gs, "") // remove internal markers
       .replace(/#\^\^\^#.*?#\^\^\^#/gs, "");
-  
+
     // Remove standalone/empty tags
     content = content.replace(/\(#\^#\)/g, "");
-  
+
     // Step 4: Split into intro and bullets (preserve line breaks inside paragraph)
     const [introPart, ...restParts] = content.split(/\n(?=- )/);
-  
+
     let htmlOutput = `<p>${introPart.trim().replace(/\n/g, "<br/>")}</p>`;
-  
+
     if (restParts.length) {
       const listItems = restParts
-        .map(part =>
-          part.trim().replace(/^- /, "").trim()
-        )
-        .map(item => item ? `<li>${item}</li>` : "")
+        .map((part) => part.trim().replace(/^- /, "").trim())
+        .map((item) => (item ? `<li>${item}</li>` : ""))
         .join("");
-  
+
       htmlOutput += `<ul class="list-disc list-inside space-y-1 mt-2">${listItems}</ul>`;
     }
-  
+
     return htmlOutput.trim();
   }
-  
 
   const queryClient = useQueryClient();
 
@@ -115,17 +114,17 @@ const Chat = () => {
     mutationFn: postMessage,
     onSuccess: (data) => {
       const raw = data.data.bot_reply.content;
-      const coversationId = data.data.chat_id
+      const coversationId = data.data.chat_id;
       if (coversationId) {
-        localStorage.setItem('policy_bandhu_chat_id', coversationId)
+        localStorage.setItem("policy_bandhu_chat_id", coversationId);
       }
       // Extract suggestions
       const suggestions = [...raw.matchAll(/#\^\^#(.*?)#\^#\^#/gs)].map((m) =>
         m[1].trim()
       );
-  
+
       const formatted = formatBotMessage(raw);
-  
+
       setMessages((prev) => [
         ...prev,
         {
@@ -133,7 +132,7 @@ const Chat = () => {
           content: formatted,
         },
       ]);
-  
+
       setThinking(false);
       setSuggestions(suggestions);
       queryClient.invalidateQueries({ queryKey: ["postMessage"] });
@@ -146,15 +145,14 @@ const Chat = () => {
       const earlierMessages = data?.data
         .reverse()
         .map(({ content, author }) => {
-          const formatted =
-            author === 1 ? formatBotMessage(content) : content;
-  
+          const formatted = author === 1 ? formatBotMessage(content) : content;
+
           return {
             type: author === 1 ? "bot" : "user",
             content: formatted,
           };
         });
-  
+
       setMessages(earlierMessages);
     },
     onError: () => {
@@ -164,7 +162,6 @@ const Chat = () => {
       });
     },
   });
-  
 
   useEffect(() => {
     if (user && authToken) {
@@ -247,6 +244,10 @@ const Chat = () => {
       </div>
     );
   }
+  
+  const onSuggestionClick = (text) => {
+    handleQuestionSubmit(text)
+  }
 
   return (
     <>
@@ -267,7 +268,9 @@ const Chat = () => {
                 </div>
               </div>
               {!is_subscribed ? (
-                <div className="text-black">queries left: {Math.max(requiredLength, 0)}</div>
+                <div className="text-black">
+                  queries left: {Math.max(requiredLength, 0)}
+                </div>
               ) : (
                 <Crown fill="#FFD700" color="#FFD700" />
               )}
@@ -316,6 +319,17 @@ const Chat = () => {
 
           {/* Chat Input */}
           <div className="w-full bg-[#F3F3FF] px-10 pb-6 pt-2 sticky bottom-0">
+            <div className="flex flex-row gap-2 mb-2 overflow-x-auto whitespace-nowrap scrollbar-hide">
+              {suggestions.map((text, index) => (
+                <div
+                  key={index}
+                  className="border rounded-md px-2 py-1 shrink-0 text-black cursor-pointer"
+                  onClick={()=>onSuggestionClick(text)}
+                >
+                  {text}
+                </div>
+              ))}
+            </div>
             <div className="flex min-h-5 items-center gap-2 bg-white rounded-full px-4 py-2 shadow-md">
               <textarea
                 ref={textareaRef}
