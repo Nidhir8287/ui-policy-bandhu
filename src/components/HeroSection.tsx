@@ -9,7 +9,7 @@ function HeroSection() {
   }
   return (
     <div className='bg-[#F3F3FF]'>
-      <div className='mx-28 flex justify-between py-20'>
+      <div className='mx-28 flex justify-between pb-20 pt-40'>
         <div className='flex flex-col'>
           <img src='/logo-without-text.png' height={89} width={64} />
           <div className='flex flex-col gap-5'>

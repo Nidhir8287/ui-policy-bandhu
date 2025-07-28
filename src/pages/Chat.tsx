@@ -45,6 +45,10 @@ const Chat = () => {
   const { is_subscribed } = userProfile || {};
 
   const handleInputChange = (e) => {
+    if (requiredLength <= 0 && !is_subscribed) {
+      setShowModal(true)
+      return
+    }
     setUserQuestion(e.target.value);
 
     // Auto-resize
