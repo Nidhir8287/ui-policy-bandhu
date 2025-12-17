@@ -26,7 +26,7 @@ const Landing = () => {
       {/* Customer Testimonials */}
       <Testimony />
       <FAQSection />
-      <MeetTheFounders />
+      {/* <MeetTheFounders /> */}
       {/* Footer */}
       <Footer />
     </div>
